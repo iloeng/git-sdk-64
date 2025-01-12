@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-commit-graph(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -453,7 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <em>git commit-graph write</em> [--object-dir &lt;dir&gt;] [--append]
                         [--split[=&lt;strategy&gt;]] [--reachable | --stdin-packs | --stdin-commits]
                         [--changed-paths] [--[no-]max-new-filters &lt;n&gt;] [--[no-]progress]
-                        &lt;split options&gt;</pre>
+                        &lt;split-options&gt;</pre>
 </div>
 </div>
 </div>
@@ -474,11 +477,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <dd>
 <p>Use given directory for the location of packfiles and commit-graph
 file. This parameter exists to specify the location of an alternate
-that only has the objects directory, not a full <code>.git</code> directory. The
-commit-graph file is expected to be in the <code>&lt;dir&gt;/info</code> directory and
-the packfiles are expected to be in <code>&lt;dir&gt;/pack</code>. If the directory
+that only has the objects directory, not a full .<code>git</code> directory. The
+commit-graph file is expected to be in the <em>&lt;dir&gt;</em><code>/info</code> directory and
+the packfiles are expected to be in <em>&lt;dir&gt;</em><code>/pack</code>. If the directory
 could not be made into an absolute path, or does not match any known
-object directory, <code>git commit-graph ...</code> will exit with non-zero
+object directory, <code>git</code> <code>commit-graph</code> ... will exit with non-zero
 status.</p>
 </dd>
 <dt class="hdlist1">--[no-]progress</dt>
@@ -526,13 +529,13 @@ existing commit-graph file.</p>
 <p>With the <code>--changed-paths</code> option, compute and write information about the
 paths changed between a commit and its first parent. This operation can
 take a while on large repositories. It provides significant performance gains
-for getting history of a directory or a file with <code>git log -- &lt;path&gt;</code>. If
+for getting history of a directory or a file with <code>git</code> <code>log</code> <code>--</code> <em>&lt;path&gt;</em>. If
 this option is given, future commit-graph writes will automatically assume
 that this option was intended. Use <code>--no-changed-paths</code> to stop storing this
 data.</p>
 </div>
 <div class="paragraph">
-<p>With the <code>--max-new-filters=&lt;n&gt;</code> option, generate at most <code>n</code> new Bloom
+<p>With the <code>--max-new-filters=</code><em>&lt;n&gt;</em> option, generate at most <code>n</code> new Bloom
 filters (if <code>--changed-paths</code> is specified). If <code>n</code> is <code>-1</code>, no limit is
 enforced. Only commits present in the new layer count against this
 limit. To retroactively compute Bloom filters over earlier layers, it is
@@ -540,9 +543,9 @@ advised to use <code>--split=replace</code>.  Overrides the <code>commitGraph.ma
 configuration.</p>
 </div>
 <div class="paragraph">
-<p>With the <code>--split[=&lt;strategy&gt;]</code> option, write the commit-graph as a
+<p>With the <code>--split</code>[<code>=</code><em>&lt;strategy&gt;</em>] option, write the commit-graph as a
 chain of multiple commit-graph files stored in
-<code>&lt;dir&gt;/info/commit-graphs</code>. Commit-graph layers are merged based on the
+<em>&lt;dir&gt;</em><code>/info/commit-graphs</code>. Commit-graph layers are merged based on the
 strategy and other splitting options. The new commits not already in the
 commit-graph are added in a new "tip" file. This file is merged with the
 existing file if the following merge conditions are met:</p>
@@ -558,17 +561,17 @@ existing chain with a length-1 chain where the first and only
 incremental holds the entire graph).</p>
 </li>
 <li>
-<p>If <code>--size-multiple=&lt;X&gt;</code> is not specified, let <code>X</code> equal 2. If the new
+<p>If <code>--size-multiple=</code><em>&lt;X&gt;</em> is not specified, let <code>X</code> equal 2. If the new
 tip file would have <code>N</code> commits and the previous tip has <code>M</code> commits and
 <code>X</code> times <code>N</code> is greater than  <code>M</code>, instead merge the two files into a
 single file.</p>
 </li>
 <li>
-<p>If <code>--max-commits=&lt;M&gt;</code> is specified with <code>M</code> a positive integer, and the
+<p>If <code>--max-commits=</code><em>&lt;M&gt;</em> is specified with <code>M</code> a positive integer, and the
 new tip file would have more than <code>M</code> commits, then instead merge the new
 tip with the previous tip.</p>
 <div class="paragraph">
-<p>Finally, if <code>--expire-time=&lt;datetime&gt;</code> is not specified, let <code>datetime</code>
+<p>Finally, if <code>--expire-time=</code><em>&lt;datetime&gt;</em> is not specified, let <code>datetime</code>
 be the current time. After writing the split commit-graph, delete all
 unused commit-graph whose modified times are older than <code>datetime</code>.</p>
 </div>
@@ -595,7 +598,7 @@ a chain of split commit-graphs.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Write a commit-graph file for the packed commits in your local <code>.git</code>
+<p>Write a commit-graph file for the packed commits in your local .<code>git</code>
 directory.</p>
 <div class="listingblock">
 <div class="content">
@@ -605,7 +608,7 @@ directory.</p>
 </li>
 <li>
 <p>Write a commit-graph file, extending the current commit-graph file
-using commits in <code>&lt;pack-index&gt;</code>.</p>
+using commits in <em>&lt;pack-index&gt;</em>.</p>
 <div class="listingblock">
 <div class="content">
 <pre>$ echo &lt;pack-index&gt; | git commit-graph write --stdin-packs</pre>
@@ -652,14 +655,44 @@ the corrected commit dates will not be written or read. Defaults to
 </dd>
 <dt class="hdlist1">commitGraph.maxNewFilters</dt>
 <dd>
-<p>Specifies the default value for the <code>--max-new-filters</code> option of <code>git
-commit-graph write</code> (c.f., <a href="git-commit-graph.html">git-commit-graph(1)</a>).</p>
+<p>Specifies the default value for the <code>--max-new-filters</code> option of <code>git</code>
+<code>commit-graph</code> <code>write</code> (c.f., <a href="git-commit-graph.html">git-commit-graph(1)</a>).</p>
 </dd>
 <dt class="hdlist1">commitGraph.readChangedPaths</dt>
 <dd>
-<p>If true, then git will use the changed-path Bloom filters in the
-commit-graph file (if it exists, and they are present). Defaults to
-true. See <a href="git-commit-graph.html">git-commit-graph(1)</a> for more information.</p>
+<p>Deprecated. Equivalent to commitGraph.changedPathsVersion=-1 if true, and
+commitGraph.changedPathsVersion=0 if false. (If commitGraph.changedPathVersion
+is also set, commitGraph.changedPathsVersion takes precedence.)</p>
+</dd>
+<dt class="hdlist1">commitGraph.changedPathsVersion</dt>
+<dd>
+<p>Specifies the version of the changed-path Bloom filters that Git will read and
+write. May be -1, 0, 1, or 2. Note that values greater than 1 may be
+incompatible with older versions of Git which do not yet understand
+those versions. Use caution when operating in a mixed-version
+environment.</p>
+<div class="paragraph">
+<p>Defaults to -1.</p>
+</div>
+<div class="paragraph">
+<p>If -1, Git will use the version of the changed-path Bloom filters in the
+repository, defaulting to 1 if there are none.</p>
+</div>
+<div class="paragraph">
+<p>If 0, Git will not read any Bloom filters, and will write version 1 Bloom
+filters when instructed to write.</p>
+</div>
+<div class="paragraph">
+<p>If 1, Git will only read version 1 Bloom filters, and will write version 1
+Bloom filters.</p>
+</div>
+<div class="paragraph">
+<p>If 2, Git will only read version 2 Bloom filters, and will write version 2
+Bloom filters.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="git-commit-graph.html">git-commit-graph(1)</a> for more information.</p>
+</div>
 </dd>
 </dl>
 </div>
@@ -684,7 +717,7 @@ true. See <a href="git-commit-graph.html">git-commit-graph(1)</a> for more infor
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

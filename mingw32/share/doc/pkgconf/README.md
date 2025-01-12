@@ -50,7 +50,7 @@ As previously mentioned, pkgconf makes optimizations to the linker flags in both
 case of static and shared linking in order to avoid overlinking binaries and also
 simplifies the `CFLAGS` and `LIBS` output of the pkgconf tool for improved readability.
 
-This functionality depends on the pkg-config module properly declaring it's dependency
+This functionality depends on the pkg-config module properly declaring its dependency
 tree instead of using `Libs` and `Cflags` fields to directly link against other modules
 which have pkg-config metadata files installed.
 
@@ -116,7 +116,7 @@ flags like so:
 
 
 pkgconf is compiled using [Meson](https://mesonbuild.com) on Windows. In theory, you could also use
-Meson to build on UNIX, but this is not recommended at this time as it pkgconf is typically built
+Meson to build on UNIX, but this is not recommended at this time as pkgconf is typically built
 much earlier than Meson.
 
     $ meson setup build -Dtests=disabled

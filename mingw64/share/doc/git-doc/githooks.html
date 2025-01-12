@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>githooks(5)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -434,6 +432,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer{background:none}
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<style>
+pre>code {
+   display: inline;
+}
 </style>
 </head>
 <body class="manpage">
@@ -493,7 +496,7 @@ arguments, and stdin. See the documentation for each hook below for
 details.</p>
 </div>
 <div class="paragraph">
-<p><code>git init</code> may copy hooks to the new repository, depending on its
+<p><code>git</code> <code>init</code> may copy hooks to the new repository, depending on its
 configuration. See the "TEMPLATE DIRECTORY" section in
 <a href="git-init.html">git-init(1)</a> for details. When the rest of this document refers
 to "default hooks" it&#8217;s talking about the default template shipped
@@ -512,7 +515,7 @@ with Git.</p>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-am.html">git-am(1)</a>.  It takes a single
 parameter, the name of the file that holds the proposed commit
-log message.  Exiting with a non-zero status causes <code>git am</code> to abort
+log message.  Exiting with a non-zero status causes <code>git</code> <code>am</code> to abort
 before applying the patch.</p>
 </div>
 <div class="paragraph">
@@ -538,7 +541,7 @@ committed after applying the patch.</p>
 </div>
 <div class="paragraph">
 <p>It can be used to inspect the current working tree and refuse to
-make a commit if it does not pass certain test.</p>
+make a commit if it does not pass certain tests.</p>
 </div>
 <div class="paragraph">
 <p>The default <em>pre-applypatch</em> hook, when enabled, runs the
@@ -553,7 +556,7 @@ and is invoked after the patch is applied and a commit is made.</p>
 </div>
 <div class="paragraph">
 <p>This hook is meant primarily for notification, and cannot affect
-the outcome of <code>git am</code>.</p>
+the outcome of <code>git</code> <code>am</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -563,7 +566,7 @@ the outcome of <code>git am</code>.</p>
 with the <code>--no-verify</code> option.  It takes no parameters, and is
 invoked before obtaining the proposed commit log message and
 making a commit.  Exiting with a non-zero status from this script
-causes the <code>git commit</code> command to abort before creating a commit.</p>
+causes the <code>git</code> <code>commit</code> command to abort before creating a commit.</p>
 </div>
 <div class="paragraph">
 <p>The default <em>pre-commit</em> hook, when enabled, catches introduction
@@ -571,7 +574,7 @@ of lines with trailing whitespaces and aborts the commit when
 such a line is found.</p>
 </div>
 <div class="paragraph">
-<p>All the <code>git commit</code> hooks are invoked with the environment
+<p>All the <code>git</code> <code>commit</code> hooks are invoked with the environment
 variable <code>GIT_EDITOR=:</code> if the command will not bring up an editor
 to modify the commit message.</p>
 </div>
@@ -589,7 +592,7 @@ with the <code>--no-verify</code> option.  It takes no parameters, and is
 invoked after the merge has been carried out successfully and before
 obtaining the proposed commit log message to
 make a commit.  Exiting with a non-zero status from this script
-causes the <code>git merge</code> command to abort before creating a commit.</p>
+causes the <code>git</code> <code>merge</code> command to abort before creating a commit.</p>
 </div>
 <div class="paragraph">
 <p>The default <em>pre-merge-commit</em> hook, when enabled, runs the
@@ -619,18 +622,18 @@ that contains the commit log message.  The second is the source of the commit
 message, and can be: <code>message</code> (if a <code>-m</code> or <code>-F</code> option was
 given); <code>template</code> (if a <code>-t</code> option was given or the
 configuration option <code>commit.template</code> is set); <code>merge</code> (if the
-commit is a merge or a <code>.git/MERGE_MSG</code> file exists); <code>squash</code>
-(if a <code>.git/SQUASH_MSG</code> file exists); or <code>commit</code>, followed by
+commit is a merge or a .<code>git/MERGE_MSG</code> file exists); <code>squash</code>
+(if a .<code>git/SQUASH_MSG</code> file exists); or <code>commit</code>, followed by
 a commit object name (if a <code>-c</code>, <code>-C</code> or <code>--amend</code> option was given).</p>
 </div>
 <div class="paragraph">
-<p>If the exit status is non-zero, <code>git commit</code> will abort.</p>
+<p>If the exit status is non-zero, <code>git</code> <code>commit</code> will abort.</p>
 </div>
 <div class="paragraph">
 <p>The purpose of the hook is to edit the message file in place, and
 it is not suppressed by the <code>--no-verify</code> option.  A non-zero exit
 means a failure of the hook and aborts the commit.  It should not
-be used as replacement for pre-commit hook.</p>
+be used as a replacement for the pre-commit hook.</p>
 </div>
 <div class="paragraph">
 <p>The sample <code>prepare-commit-msg</code> hook that comes with Git removes the
@@ -664,7 +667,7 @@ invoked after a commit is made.</p>
 </div>
 <div class="paragraph">
 <p>This hook is meant primarily for notification, and cannot affect
-the outcome of <code>git commit</code>.</p>
+the outcome of <code>git</code> <code>commit</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -686,14 +689,14 @@ worktree.  The hook is given three parameters: the ref of the previous HEAD,
 the ref of the new HEAD (which may or may not have changed), and a flag
 indicating whether the checkout was a branch checkout (changing branches,
 flag=1) or a file checkout (retrieving a file from the index, flag=0).
-This hook cannot affect the outcome of <code>git switch</code> or <code>git checkout</code>,
+This hook cannot affect the outcome of <code>git</code> <code>switch</code> or <code>git</code> <code>checkout</code>,
 other than that the hook&#8217;s exit status becomes the exit status of
 these two commands.</p>
 </div>
 <div class="paragraph">
 <p>It is also run after <a href="git-clone.html">git-clone(1)</a>, unless the <code>--no-checkout</code> (<code>-n</code>) option is
 used. The first parameter given to the hook is the null-ref, the second the
-ref of the new HEAD and the flag is always 1. Likewise for <code>git worktree add</code>
+ref of the new HEAD and the flag is always 1. Likewise for <code>git</code> <code>worktree</code> <code>add</code>
 unless <code>--no-checkout</code> is used.</p>
 </div>
 <div class="paragraph">
@@ -705,10 +708,10 @@ properties.</p>
 <div class="sect2">
 <h3 id="_post_merge">post-merge</h3>
 <div class="paragraph">
-<p>This hook is invoked by <a href="git-merge.html">git-merge(1)</a>, which happens when a <code>git pull</code>
+<p>This hook is invoked by <a href="git-merge.html">git-merge(1)</a>, which happens when a <code>git</code> <code>pull</code>
 is done on a local repository.  The hook takes a single parameter, a status
 flag specifying whether or not the merge being done was a squash merge.
-This hook cannot affect the outcome of <code>git merge</code> and is not executed,
+This hook cannot affect the outcome of <code>git</code> <code>merge</code> and is not executed,
 if the merge failed due to conflicts.</p>
 </div>
 <div class="paragraph">
@@ -732,11 +735,11 @@ input with lines of the form:</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;local ref&gt; SP &lt;local object name&gt; SP &lt;remote ref&gt; SP &lt;remote object name&gt; LF</pre>
+<pre>&lt;local-ref&gt; SP &lt;local-object-name&gt; SP &lt;remote-ref&gt; SP &lt;remote-object-name&gt; LF</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For instance, if the command <code>git push origin master:foreign</code> were run the
+<p>For instance, if the command <code>git</code> <code>push</code> <code>origin</code> <code>master:foreign</code> were run the
 hook would receive a line like the following:</p>
 </div>
 <div class="literalblock">
@@ -746,14 +749,14 @@ hook would receive a line like the following:</p>
 </div>
 <div class="paragraph">
 <p>although the full object name would be supplied.  If the foreign ref does not
-yet exist the <code>&lt;remote object name&gt;</code> will be the all-zeroes object name.  If a
-ref is to be deleted, the <code>&lt;local ref&gt;</code> will be supplied as <code>(delete)</code> and the
-<code>&lt;local object name&gt;</code> will be the all-zeroes object name.  If the local commit
+yet exist the <em>&lt;remote-object-name&gt;</em> will be the all-zeroes object name.  If a
+ref is to be deleted, the <em>&lt;local-ref&gt;</em> will be supplied as (<code>delete</code>) and the
+<em>&lt;local-object-name&gt;</em> will be the all-zeroes object name.  If the local commit
 was specified by something other than a name which could be expanded (such as
 <code>HEAD~</code>, or an object name) it will be supplied as it was originally given.</p>
 </div>
 <div class="paragraph">
-<p>If this hook exits with a non-zero status, <code>git push</code> will abort without
+<p>If this hook exits with a non-zero status, <code>git</code> <code>push</code> will abort without
 pushing anything.  Information about why the push is rejected may be sent
 to the user by writing to standard error.</p>
 </div>
@@ -762,7 +765,7 @@ to the user by writing to standard error.</p>
 <h3 id="pre-receive">pre-receive</h3>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-receive-pack.html">git-receive-pack(1)</a> when it reacts to
-<code>git push</code> and updates reference(s) in its repository.
+<code>git</code> <code>push</code> and updates reference(s) in its repository.
 Just before starting to update refs on the remote repository, the
 pre-receive hook is invoked.  Its exit status determines the success
 or failure of the update.</p>
@@ -774,14 +777,14 @@ input a line of the format:</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>&lt;old-value&gt; SP &lt;new-value&gt; SP &lt;ref-name&gt; LF</pre>
+<pre>&lt;old-oid&gt; SP &lt;new-oid&gt; SP &lt;ref-name&gt; LF</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>&lt;old-value&gt;</code> is the old object name stored in the ref,
-<code>&lt;new-value&gt;</code> is the new object name to be stored in the ref and
-<code>&lt;ref-name&gt;</code> is the full name of the ref.
-When creating a new ref, <code>&lt;old-value&gt;</code> is the all-zeroes object name.</p>
+<p>where <em>&lt;old-oid&gt;</em> is the old object name stored in the ref,
+<em>&lt;new-oid&gt;</em> is the new object name to be stored in the ref and
+<em>&lt;ref-name&gt;</em> is the full name of the ref.
+When creating a new ref, <em>&lt;old-oid&gt;</em> is the all-zeroes object name.</p>
 </div>
 <div class="paragraph">
 <p>If the hook exits with non-zero status, none of the refs will be
@@ -790,12 +793,12 @@ still be prevented by the <a href="#update"><em>update</em></a> hook.</p>
 </div>
 <div class="paragraph">
 <p>Both standard output and standard error output are forwarded to
-<code>git send-pack</code> on the other end, so you can simply <code>echo</code> messages
+<code>git</code> <code>send-pack</code> on the other end, so you can simply <code>echo</code> messages
 for the user.</p>
 </div>
 <div class="paragraph">
 <p>The number of push options given on the command line of
-<code>git push --push-option=...</code> can be read from the environment
+<code>git</code> <code>push</code> <code>--push-option=..</code>. can be read from the environment
 variable <code>GIT_PUSH_OPTION_COUNT</code>, and the options themselves are
 found in <code>GIT_PUSH_OPTION_0</code>, <code>GIT_PUSH_OPTION_1</code>,&#8230;&#8203;
 If it is negotiated to not use the push options phase, the
@@ -812,7 +815,7 @@ will be set to zero, <code>GIT_PUSH_OPTION_COUNT=0</code>.</p>
 <h3 id="update">update</h3>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-receive-pack.html">git-receive-pack(1)</a> when it reacts to
-<code>git push</code> and updates reference(s) in its repository.
+<code>git</code> <code>push</code> and updates reference(s) in its repository.
 Just before updating the ref on the remote repository, the update hook
 is invoked.  Its exit status determines the success or failure of
 the ref update.</p>
@@ -836,7 +839,7 @@ three parameters:</p>
 </div>
 <div class="paragraph">
 <p>A zero exit from the update hook allows the ref to be updated.
-Exiting with a non-zero status prevents <code>git receive-pack</code>
+Exiting with a non-zero status prevents <code>git</code> <code>receive-pack</code>
 from updating that ref.</p>
 </div>
 <div class="paragraph">
@@ -860,13 +863,13 @@ shell to restrict the user&#8217;s access to only git commands.</p>
 </div>
 <div class="paragraph">
 <p>Both standard output and standard error output are forwarded to
-<code>git send-pack</code> on the other end, so you can simply <code>echo</code> messages
+<code>git</code> <code>send-pack</code> on the other end, so you can simply <code>echo</code> messages
 for the user.</p>
 </div>
 <div class="paragraph">
 <p>The default <em>update</em> hook, when enabled&#8212;&#8203;and with
 <code>hooks.allowunannotated</code> config option unset or set to false&#8212;&#8203;prevents
-unannotated tags to be pushed.</p>
+unannotated tags from being pushed.</p>
 </div>
 </div>
 <div class="sect2">
@@ -876,7 +879,7 @@ unannotated tags to be pushed.</p>
 set the multi-valued config variable <code>receive.procReceiveRefs</code>, and the
 commands sent to <em>receive-pack</em> have matching reference names, these
 commands will be executed by this hook, instead of by the internal
-<code>execute_commands()</code> function.  This hook is responsible for updating
+<code>execute_commands</code>() function.  This hook is responsible for updating
 the relevant references and reporting the results back to <em>receive-pack</em>.</p>
 </div>
 <div class="paragraph">
@@ -909,12 +912,12 @@ S: flush-pkt</pre>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre># Receive result from the hook.
+<pre># Receive results from the hook.
 # OK, run this command successfully.
 H: PKT-LINE(ok &lt;ref&gt;)
 # NO, I reject it.
 H: PKT-LINE(ng &lt;ref&gt; &lt;reason&gt;)
-# Fall through, let 'receive-pack' to execute it.
+# Fall through, let 'receive-pack' execute it.
 H: PKT-LINE(ok &lt;ref&gt;)
 H: PKT-LINE(option fall-through)
 # OK, but has an alternate reference.  The alternate reference name
@@ -947,18 +950,18 @@ atomic push is in use.</p>
 <h3 id="post-receive">post-receive</h3>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-receive-pack.html">git-receive-pack(1)</a> when it reacts to
-<code>git push</code> and updates reference(s) in its repository.
-It executes on the remote repository once after all the refs have
-been updated.</p>
+<code>git</code> <code>push</code> and updates reference(s) in its repository.
+The hook executes on the remote repository once after all the proposed
+ref updates are processed and if at least one ref is updated as the
+result.</p>
 </div>
 <div class="paragraph">
-<p>This hook executes once for the receive operation.  It takes no
-arguments, but gets the same information as the
-<a href="#pre-receive"><em>pre-receive</em></a>
-hook does on its standard input.</p>
+<p>The hook takes no arguments.  It receives one line on standard input for
+each ref that is successfully updated following the same format as the
+<a href="#pre-receive"><em>pre-receive</em></a> hook.</p>
 </div>
 <div class="paragraph">
-<p>This hook does not affect the outcome of <code>git receive-pack</code>, as it
+<p>This hook does not affect the outcome of <code>git</code> <code>receive-pack</code>, as it
 is called after the real work is done.</p>
 </div>
 <div class="paragraph">
@@ -968,7 +971,7 @@ names.</p>
 </div>
 <div class="paragraph">
 <p>Both standard output and standard error output are forwarded to
-<code>git send-pack</code> on the other end, so you can simply <code>echo</code> messages
+<code>git</code> <code>send-pack</code> on the other end, so you can simply <code>echo</code> messages
 for the user.</p>
 </div>
 <div class="paragraph">
@@ -979,7 +982,7 @@ emails.</p>
 </div>
 <div class="paragraph">
 <p>The number of push options given on the command line of
-<code>git push --push-option=...</code> can be read from the environment
+<code>git</code> <code>push</code> <code>--push-option=..</code>. can be read from the environment
 variable <code>GIT_PUSH_OPTION_COUNT</code>, and the options themselves are
 found in <code>GIT_PUSH_OPTION_0</code>, <code>GIT_PUSH_OPTION_1</code>,&#8230;&#8203;
 If it is negotiated to not use the push options phase, the
@@ -987,12 +990,16 @@ environment variables will not be set. If the client selects
 to use push options, but doesn&#8217;t transmit any, the count variable
 will be set to zero, <code>GIT_PUSH_OPTION_COUNT=0</code>.</p>
 </div>
+<div class="paragraph">
+<p>See the "post-receive" section in <a href="git-receive-pack.html">git-receive-pack(1)</a> for
+additional details.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="post-update">post-update</h3>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-receive-pack.html">git-receive-pack(1)</a> when it reacts to
-<code>git push</code> and updates reference(s) in its repository.
+<code>git</code> <code>push</code> and updates reference(s) in its repository.
 It executes on the remote repository once after all the refs have
 been updated.</p>
 </div>
@@ -1002,7 +1009,7 @@ name of ref that was actually updated.</p>
 </div>
 <div class="paragraph">
 <p>This hook is meant primarily for notification, and cannot affect
-the outcome of <code>git receive-pack</code>.</p>
+the outcome of <code>git</code> <code>receive-pack</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <em>post-update</em> hook can tell what are the heads that were pushed,
@@ -1014,14 +1021,14 @@ them.</p>
 </div>
 <div class="paragraph">
 <p>When enabled, the default <em>post-update</em> hook runs
-<code>git update-server-info</code> to keep the information used by dumb
+<code>git</code> <code>update-server-info</code> to keep the information used by dumb
 transports (e.g., HTTP) up to date.  If you are publishing
 a Git repository that is accessible via HTTP, you should
 probably enable this hook.</p>
 </div>
 <div class="paragraph">
 <p>Both standard output and standard error output are forwarded to
-<code>git send-pack</code> on the other end, so you can simply <code>echo</code> messages
+<code>git</code> <code>send-pack</code> on the other end, so you can simply <code>echo</code> messages
 for the user.</p>
 </div>
 </div>
@@ -1031,7 +1038,7 @@ for the user.</p>
 <p>This hook is invoked by any Git command that performs reference
 updates. It executes whenever a reference transaction is prepared,
 committed or aborted and may thus get called multiple times. The hook
-does not cover symbolic references (but that may change in the future).</p>
+also supports symbolic reference updates.</p>
 </div>
 <div class="paragraph">
 <p>The hook takes exactly one argument, which is the current state the
@@ -1063,13 +1070,18 @@ receives on standard input a line of the format:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where <code>&lt;old-value&gt;</code> is the old object name passed into the reference
-transaction, <code>&lt;new-value&gt;</code> is the new object name to be stored in the
-ref and <code>&lt;ref-name&gt;</code> is the full name of the ref. When force updating
+<p>where <em>&lt;old-value&gt;</em> is the old object name passed into the reference
+transaction, <em>&lt;new-value&gt;</em> is the new object name to be stored in the
+ref and <em>&lt;ref-name&gt;</em> is the full name of the ref. When force updating
 the reference regardless of its current value or when the reference is
-to be created anew, <code>&lt;old-value&gt;</code> is the all-zeroes object name. To
+to be created anew, <em>&lt;old-value&gt;</em> is the all-zeroes object name. To
 distinguish these cases, you can inspect the current value of
-<code>&lt;ref-name&gt;</code> via <code>git rev-parse</code>.</p>
+<em>&lt;ref-name&gt;</em> via <code>git</code> <code>rev-parse</code>.</p>
+</div>
+<div class="paragraph">
+<p>For symbolic reference updates the &lt;old_value&gt; and <em>&lt;new-value&gt;</em>
+fields could denote references instead of objects. A reference will be
+denoted with a <em>ref:</em> prefix, like <code>ref:</code><em>&lt;ref-target&gt;</em>.</p>
 </div>
 <div class="paragraph">
 <p>The exit status of the hook is ignored for any state except for the
@@ -1082,7 +1094,7 @@ cause the transaction to be aborted. The hook will not be called with
 <h3 id="_push_to_checkout">push-to-checkout</h3>
 <div class="paragraph">
 <p>This hook is invoked by <a href="git-receive-pack.html">git-receive-pack(1)</a> when it reacts to
-<code>git push</code> and updates reference(s) in its repository, and when
+<code>git</code> <code>push</code> and updates reference(s) in its repository, and when
 the push tries to update the branch that is currently checked out
 and the <code>receive.denyCurrentBranch</code> configuration variable is set to
 <code>updateInstead</code>.  Such a push by default is refused if the working
@@ -1102,10 +1114,10 @@ when the tip of the current branch is updated to the new commit, and
 exit with a zero status.</p>
 </div>
 <div class="paragraph">
-<p>For example, the hook can simply run <code>git read-tree -u -m HEAD "$1"</code>
-in order to emulate <code>git fetch</code> that is run in the reverse direction
-with <code>git push</code>, as the two-tree form of <code>git read-tree -u -m</code> is
-essentially the same as <code>git switch</code> or <code>git checkout</code>
+<p>For example, the hook can simply run <code>git</code> <code>read-tree</code> <code>-u</code> <code>-m</code> <code>HEAD</code> "$1"
+in order to emulate <code>git</code> <code>fetch</code> that is run in the reverse direction
+with <code>git</code> <code>push</code>, as the two-tree form of <code>git</code> <code>read-tree</code> <code>-u</code> <code>-m</code> is
+essentially the same as <code>git</code> <code>switch</code> or <code>git</code> <code>checkout</code>
 that switches branches while
 keeping the local changes in the working tree that do not interfere
 with the difference between the branches.</p>
@@ -1114,9 +1126,9 @@ with the difference between the branches.</p>
 <div class="sect2">
 <h3 id="_pre_auto_gc">pre-auto-gc</h3>
 <div class="paragraph">
-<p>This hook is invoked by <code>git gc --auto</code> (see <a href="git-gc.html">git-gc(1)</a>). It
+<p>This hook is invoked by <code>git</code> <code>gc</code> <code>--auto</code> (see <a href="git-gc.html">git-gc(1)</a>). It
 takes no parameter, and exiting with non-zero status from this script
-causes the <code>git gc --auto</code> to abort.</p>
+causes the <code>git</code> <code>gc</code> <code>--auto</code> to abort.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1200,7 +1212,7 @@ Subject: PATCH-STRING</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Exiting with a non-zero status causes <code>git send-email</code> to abort
+<p>Exiting with a non-zero status causes <code>git</code> <code>send-email</code> to abort
 before sending any e-mails.</p>
 </div>
 <div class="paragraph">
@@ -1239,7 +1251,7 @@ have been applied.</p>
 <h3 id="_fsmonitor_watchman">fsmonitor-watchman</h3>
 <div class="paragraph">
 <p>This hook is invoked when the configuration option <code>core.fsmonitor</code> is
-set to <code>.git/hooks/fsmonitor-watchman</code> or <code>.git/hooks/fsmonitor-watchmanv2</code>
+set to .<code>git/hooks/fsmonitor-watchman</code> or .<code>git/hooks/fsmonitor-watchmanv2</code>
 depending on the version of the hook to use.</p>
 </div>
 <div class="paragraph">
@@ -1282,7 +1294,7 @@ all files and folders.</p>
 <div class="sect2">
 <h3 id="_p4_changelist">p4-changelist</h3>
 <div class="paragraph">
-<p>This hook is invoked by <code>git-p4 submit</code>.</p>
+<p>This hook is invoked by <code>git-p4</code> <code>submit</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>p4-changelist</code> hook is executed after the changelist
@@ -1297,13 +1309,13 @@ to normalize the text into some project standard format. It can
 also be used to refuse the Submit after inspect the message file.</p>
 </div>
 <div class="paragraph">
-<p>Run <code>git-p4 submit --help</code> for details.</p>
+<p>Run <code>git-p4</code> <code>submit</code> <code>--help</code> for details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_p4_prepare_changelist">p4-prepare-changelist</h3>
 <div class="paragraph">
-<p>This hook is invoked by <code>git-p4 submit</code>.</p>
+<p>This hook is invoked by <code>git-p4</code> <code>submit</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>p4-prepare-changelist</code> hook is executed right after preparing
@@ -1318,13 +1330,13 @@ and it is not suppressed by the <code>--no-verify</code> option. This hook
 is called even if <code>--prepare-p4-only</code> is set.</p>
 </div>
 <div class="paragraph">
-<p>Run <code>git-p4 submit --help</code> for details.</p>
+<p>Run <code>git-p4</code> <code>submit</code> <code>--help</code> for details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_p4_post_changelist">p4-post-changelist</h3>
 <div class="paragraph">
-<p>This hook is invoked by <code>git-p4 submit</code>.</p>
+<p>This hook is invoked by <code>git-p4</code> <code>submit</code>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>p4-post-changelist</code> hook is invoked after the submit has
@@ -1333,16 +1345,16 @@ primarily for notification and cannot affect the outcome of the
 git p4 submit action.</p>
 </div>
 <div class="paragraph">
-<p>Run <code>git-p4 submit --help</code> for details.</p>
+<p>Run <code>git-p4</code> <code>submit</code> <code>--help</code> for details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_p4_pre_submit">p4-pre-submit</h3>
 <div class="paragraph">
-<p>This hook is invoked by <code>git-p4 submit</code>. It takes no parameters and nothing
+<p>This hook is invoked by <code>git-p4</code> <code>submit</code>. It takes no parameters and nothing
 from standard input. Exiting with non-zero status from this script prevent
-<code>git-p4 submit</code> from launching. It can be bypassed with the <code>--no-verify</code>
-command line option. Run <code>git-p4 submit --help</code> for details.</p>
+<code>git-p4</code> <code>submit</code> from launching. It can be bypassed with the <code>--no-verify</code>
+command line option. Run <code>git-p4</code> <code>submit</code> <code>--help</code> for details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1388,7 +1400,7 @@ running passing "1", "1" should not be possible.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

@@ -217,11 +217,17 @@ Parameters: (FunctionName, DataType, Segment)
    Type: b, w, l, q
    */
 
+#if defined(__GNUC__) && __GNUC__ > 11
+#define __buildreadseg_star (*)[]
+#else
+#define __buildreadseg_star *
+#endif
+
 #define __buildreadseg(x, y, z, a) y x(unsigned __LONG32 Offset) { \
     y ret; \
     __asm__ ("mov{" a " %%" z ":%[offset], %[ret] | %[ret], %%" z ":%[offset]}" \
         : [ret] "=r" (ret) \
-        : [offset] "m" ((*(y *) (size_t) Offset))); \
+        : [offset] "m" ((*(y __buildreadseg_star) (size_t) Offset))); \
     return ret; \
 }
 
@@ -2023,7 +2029,7 @@ void __cpuid(int CPUInfo[4], int InfoType) {
 #define __INTRINSIC_DEFINED___cpuid
 #endif /* __INTRINSIC_PROLOG */
 
-#if (!defined(__GNUC__) || __GNUC__ < 11)
+#if (!defined(__GNUC__) || __GNUC__ < 11) && (!defined(__clang__) || __clang_major__ < 19)
 #if __INTRINSIC_PROLOG(__cpuidex)
 void __cpuidex(int CPUInfo[4], int, int);
 #if !__has_builtin(__cpuidex)

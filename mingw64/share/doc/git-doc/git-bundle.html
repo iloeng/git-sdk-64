@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-bundle(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -467,8 +470,9 @@ sitting on the other side of the network connection.</p>
 </div>
 <div class="paragraph">
 <p>They can be used to create both incremental and full backups of a
-repository, and to relay the state of the references in one repository
-to another.</p>
+repository (see the "full backup" example in "EXAMPLES"), and to relay
+the state of the references in one repository to another (see the second
+example).</p>
 </div>
 <div class="paragraph">
 <p>Git commands that fetch or otherwise "read" via protocols such as
@@ -476,11 +480,8 @@ to another.</p>
 possible <a href="git-clone.html">git-clone(1)</a> a new repository from a bundle, to use
 <a href="git-fetch.html">git-fetch(1)</a> to fetch from one, and to list the references
 contained within it with <a href="git-ls-remote.html">git-ls-remote(1)</a>. There&#8217;s no
-corresponding "write" support, i.e.a <em>git push</em> into a bundle is not
+corresponding "write" support, i.e. a <em>git push</em> into a bundle is not
 supported.</p>
-</div>
-<div class="paragraph">
-<p>See the "EXAMPLES" section below for examples of how to use bundles.</p>
 </div>
 </div>
 </div>
@@ -488,7 +489,7 @@ supported.</p>
 <h2 id="_bundle_format">BUNDLE FORMAT</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Bundles are <code>.pack</code> files (see <a href="git-pack-objects.html">git-pack-objects(1)</a>) with a
+<p>Bundles are .<code>pack</code> files (see <a href="git-pack-objects.html">git-pack-objects(1)</a>) with a
 header indicating what references are contained within the bundle.</p>
 </div>
 <div class="paragraph">
@@ -559,7 +560,7 @@ If <em>file</em> is <code>-</code>, the bundle is read from stdin.</p>
 <p>A list of arguments, acceptable to <em>git rev-parse</em> and
 <em>git rev-list</em> (and containing a named ref, see SPECIFYING REFERENCES
 below), that specifies the specific objects and references
-to transport.  For example, <code>master~10..master</code> causes the
+to transport.  For example, <code>master~10</code><code>..</code><code>master</code> causes the
 current master reference to be packaged along with all objects
 added since its 10th ancestor commit.  There is no explicit
 limit to the number of references and objects that may be
@@ -602,7 +603,7 @@ on the standard error stream.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Revisions must be accompanied by reference names to be packaged in a
-bundle.</p>
+bundle.  Alternatively <code>--all</code> can be used to package all refs.</p>
 </div>
 <div class="paragraph">
 <p>More than one reference may be packaged, and more than one set of prerequisite objects can
@@ -611,9 +612,9 @@ union of the prerequisites.</p>
 </div>
 <div class="paragraph">
 <p>The <em>git bundle create</em> command resolves the reference names for you
-using the same rules as <code>git rev-parse --abbrev-ref=loose</code>. Each
+using the same rules as <code>git</code> <code>rev-parse</code> <code>--abbrev-ref=loose</code>. Each
 prerequisite can be specified explicitly (e.g. <code>^master~10</code>), or implicitly
-(e.g. <code>master~10..master</code>, <code>--since=10.days.ago master</code>).</p>
+(e.g. <code>master~10</code><code>..</code><code>master</code>, <code>--since=10.days.ago</code> <code>master</code>).</p>
 </div>
 <div class="paragraph">
 <p>All of these simple cases are OK (assuming we have a "master" and
@@ -660,7 +661,7 @@ as providing negative revisions to exclude objects needed in the
 earlier parts of the history.</p>
 </div>
 <div class="paragraph">
-<p>Feeding a revision such as <code>new</code> to <code>git bundle create</code> will create a
+<p>Feeding a revision such as <code>new</code> to <code>git</code> <code>bundle</code> <code>create</code> will create a
 bundle file that contains all the objects reachable from the revision
 <code>new</code>. That bundle can be unbundled in any repository to obtain a full
 history that leads to the revision <code>new</code>:</p>
@@ -671,7 +672,7 @@ history that leads to the revision <code>new</code>:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>A revision range such as <code>old..new</code> will produce a bundle file that
+<p>A revision range such as <code>old</code><code>..</code><code>new</code> will produce a bundle file that
 will require the revision <code>old</code> (and any objects reachable from it)
 to exist for the bundle to be "unbundle"-able:</p>
 </div>
@@ -683,7 +684,7 @@ to exist for the bundle to be "unbundle"-able:</p>
 <div class="paragraph">
 <p>A self-contained bundle without any prerequisites can be extracted
 into anywhere, even into an empty repository, or be cloned from
-(i.e., <code>new</code>, but not <code>old..new</code>).</p>
+(i.e., <code>new</code>, but not <code>old</code><code>..</code><code>new</code>).</p>
 </div>
 <div class="paragraph">
 <p>It is okay to err on the side of caution, causing the bundle file
@@ -691,11 +692,9 @@ to contain objects already in the destination, as these are ignored
 when unpacking at the destination.</p>
 </div>
 <div class="paragraph">
-<p>If you want to match <code>git clone --mirror</code>, which would include your
-refs such as <code>refs/remotes/*</code>, use <code>--all</code>.
-If you want to provide the same set of refs that a clone directly
-from the source repository would get, use <code>--branches --tags</code> for
-the <code>&lt;git-rev-list-args&gt;</code>.</p>
+<p>If you want to provide the same set of refs that a clone directly
+from the source repository would get, use <code>--branches</code> <code>--tags</code> for
+the <em>&lt;git-rev-list-args&gt;</em>.</p>
 </div>
 <div class="paragraph">
 <p>The <em>git bundle verify</em> command can be used to check whether your
@@ -708,8 +707,47 @@ bundle.</p>
 <h2 id="_examples">EXAMPLES</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Assume you want to transfer the history from a repository R1 on machine A
-to another repository R2 on machine B.
+<p>We&#8217;ll discuss two cases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Taking a full backup of a repository</p>
+</li>
+<li>
+<p>Transferring the history of a repository to another machine when the
+two machines have no direct connection</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>First let&#8217;s consider a full backup of the repository.  The following
+command will take a full backup of the repository in the sense that all
+refs are included in the bundle:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git bundle create backup.bundle --all</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But note again that this is only for the refs, i.e. you will only
+include refs and commits reachable from those refs.  You will not
+include other local state, such as the contents of the index, working
+tree, the stash, per-repository configuration, hooks, etc.</p>
+</div>
+<div class="paragraph">
+<p>You can later recover that repository by using for example
+<a href="git-clone.html">git-clone(1)</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ git clone backup.bundle &lt;new directory&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the next example, assume you want to transfer the history from a
+repository R1 on machine A to another repository R2 on machine B.
 For whatever reason, direct connection between A and B is not allowed,
 but we can move data from A to B via some mechanism (CD, email, etc.).
 We want to update R2 with development made on the branch master in R1.</p>
@@ -808,7 +846,7 @@ the <a href="git-log.html">git-log(1)</a> command. Here are more examples:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>You can run <code>git-bundle verify</code> to see if you can extract from a bundle
+<p>You can run <code>git-bundle</code> <code>verify</code> to see if you can extract from a bundle
 that was created with a prerequisite:</p>
 </div>
 <div class="listingblock">
@@ -841,6 +879,29 @@ references when fetching:</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_discussion">DISCUSSION</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A naive way to make a full backup of a repository is to use something to
+the effect of <code>cp</code> <code>-r</code> <em>&lt;repo&gt;</em> <em>&lt;destination&gt;</em>.  This is discouraged since
+the repository could be written to during the copy operation.  In turn
+some files at <em>&lt;destination&gt;</em> could be corrupted.</p>
+</div>
+<div class="paragraph">
+<p>This is why it is recommended to use Git tooling for making repository
+backups, either with this command or with e.g. <a href="git-clone.html">git-clone(1)</a>.
+But keep in mind that these tools will not help you backup state other
+than refs and commits.  In other words they will not help you backup
+contents of the index, working tree, the stash, per-repository
+configuration, hooks, etc.</p>
+</div>
+<div class="paragraph">
+<p>See also <a href="gitfaq.html">gitfaq(7)</a>, section "TRANSFERS" for a discussion of the
+problems associated with file syncing across systems.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_file_format">FILE FORMAT</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -859,7 +920,7 @@ references when fetching:</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

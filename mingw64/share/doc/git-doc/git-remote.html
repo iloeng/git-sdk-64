@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-remote(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -434,6 +432,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer{background:none}
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<style>
+pre>code {
+   display: inline;
+}
 </style>
 </head>
 <body class="manpage">
@@ -482,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <dt class="hdlist1">--verbose</dt>
 <dd>
 <p>Be a little more verbose and show remote url after name.
-For promisor remotes, also show which filter (<code>blob:none</code> etc.)
+For promisor remotes, also show which filters (<code>blob:none</code> etc.)
 are configured.
 NOTE: This must be placed between <code>remote</code> and subcommand.</p>
 </dd>
@@ -502,18 +505,18 @@ subcommands are available to perform operations on the remotes.</p>
 <dt class="hdlist1"><em>add</em></dt>
 <dd>
 <p>Add a remote named &lt;name&gt; for the repository at
-&lt;URL&gt;.  The command <code>git fetch &lt;name&gt;</code> can then be used to create and
+&lt;URL&gt;.  The command <code>git</code> <code>fetch</code> <em>&lt;name&gt;</em> can then be used to create and
 update remote-tracking branches &lt;name&gt;/&lt;branch&gt;.</p>
 <div class="paragraph">
-<p>With <code>-f</code> option, <code>git fetch &lt;name&gt;</code> is run immediately after
+<p>With <code>-f</code> option, <code>git</code> <code>fetch</code> <em>&lt;name&gt;</em> is run immediately after
 the remote information is set up.</p>
 </div>
 <div class="paragraph">
-<p>With <code>--tags</code> option, <code>git fetch &lt;name&gt;</code> imports every tag from the
+<p>With <code>--tags</code> option, <code>git</code> <code>fetch</code> <em>&lt;name&gt;</em> imports every tag from the
 remote repository.</p>
 </div>
 <div class="paragraph">
-<p>With <code>--no-tags</code> option, <code>git fetch &lt;name&gt;</code> does not import tags from
+<p>With <code>--no-tags</code> option, <code>git</code> <code>fetch</code> <em>&lt;name&gt;</em> does not import tags from
 the remote repository.</p>
 </div>
 <div class="paragraph">
@@ -521,15 +524,15 @@ the remote repository.</p>
 (see <a href="git-fetch.html">git-fetch(1)</a>).</p>
 </div>
 <div class="paragraph">
-<p>With <code>-t &lt;branch&gt;</code> option, instead of the default glob
+<p>With <code>-t</code> <em>&lt;branch&gt;</em> option, instead of the default glob
 refspec for the remote to track all branches under
-the <code>refs/remotes/&lt;name&gt;/</code> namespace, a refspec to track only <code>&lt;branch&gt;</code>
-is created.  You can give more than one <code>-t &lt;branch&gt;</code> to track
+the <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/</code> namespace, a refspec to track only <em>&lt;branch&gt;</em>
+is created.  You can give more than one <code>-t</code> <em>&lt;branch&gt;</em> to track
 multiple branches without grabbing all branches.</p>
 </div>
 <div class="paragraph">
-<p>With <code>-m &lt;master&gt;</code> option, a symbolic-ref <code>refs/remotes/&lt;name&gt;/HEAD</code> is set
-up to point at remote&#8217;s <code>&lt;master&gt;</code> branch. See also the set-head command.</p>
+<p>With <code>-m</code> <em>&lt;master&gt;</em> option, a symbolic-ref <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/HEAD</code> is set
+up to point at remote&#8217;s <em>&lt;master&gt;</em> branch. See also the set-head command.</p>
 </div>
 <div class="paragraph">
 <p>When a fetch mirror is created with <code>--mirror=fetch</code>, the refs will not
@@ -539,7 +542,7 @@ local repository. This option only makes sense in bare repositories,
 because a fetch would overwrite any local commits.</p>
 </div>
 <div class="paragraph">
-<p>When a push mirror is created with <code>--mirror=push</code>, then <code>git push</code>
+<p>When a push mirror is created with <code>--mirror=push</code>, then <code>git</code> <code>push</code>
 will always behave as if <code>--mirror</code> was passed.</p>
 </div>
 </dd>
@@ -562,26 +565,26 @@ configuration settings for the remote are removed.</p>
 <dt class="hdlist1"><em>set-head</em></dt>
 <dd>
 <p>Sets or deletes the default branch (i.e. the target of the
-symbolic-ref <code>refs/remotes/&lt;name&gt;/HEAD</code>) for
+symbolic-ref <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/HEAD</code>) for
 the named remote. Having a default branch for a remote is not required,
 but allows the name of the remote to be specified in lieu of a specific
 branch. For example, if the default branch for <code>origin</code> is set to
 <code>master</code>, then <code>origin</code> may be specified wherever you would normally
 specify <code>origin/master</code>.</p>
 <div class="paragraph">
-<p>With <code>-d</code> or <code>--delete</code>, the symbolic ref <code>refs/remotes/&lt;name&gt;/HEAD</code> is deleted.</p>
+<p>With <code>-d</code> or <code>--delete</code>, the symbolic ref <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/HEAD</code> is deleted.</p>
 </div>
 <div class="paragraph">
 <p>With <code>-a</code> or <code>--auto</code>, the remote is queried to determine its <code>HEAD</code>, then the
-symbolic-ref <code>refs/remotes/&lt;name&gt;/HEAD</code> is set to the same branch. e.g., if the remote
-<code>HEAD</code> is pointed at <code>next</code>, <code>git remote set-head origin -a</code> will set
+symbolic-ref <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/HEAD</code> is set to the same branch. e.g., if the remote
+<code>HEAD</code> is pointed at <code>next</code>, <code>git</code> <code>remote</code> <code>set-head</code> <code>origin</code> <code>-a</code> will set
 the symbolic-ref <code>refs/remotes/origin/HEAD</code> to <code>refs/remotes/origin/next</code>. This will
 only work if <code>refs/remotes/origin/next</code> already exists; if not it must be
 fetched first.</p>
 </div>
 <div class="paragraph">
-<p>Use <code>&lt;branch&gt;</code> to set the symbolic-ref <code>refs/remotes/&lt;name&gt;/HEAD</code> explicitly. e.g., <code>git
-remote set-head origin master</code> will set the symbolic-ref <code>refs/remotes/origin/HEAD</code> to
+<p>Use <em>&lt;branch&gt;</em> to set the symbolic-ref <code>refs/remotes/</code><em>&lt;name&gt;</em><code>/HEAD</code> explicitly. e.g., <code>git</code>
+<code>remote</code> <code>set-head</code> <code>origin</code> <code>master</code> will set the symbolic-ref <code>refs/remotes/origin/HEAD</code> to
 <code>refs/remotes/origin/master</code>. This will only work if
 <code>refs/remotes/origin/master</code> already exists; if not it must be fetched first.</p>
 </div>
@@ -593,7 +596,7 @@ This can be used to track a subset of the available remote branches
 after the initial setup for a remote.</p>
 <div class="paragraph">
 <p>The named branches will be interpreted as if specified with the
-<code>-t</code> option on the <code>git remote add</code> command line.</p>
+<code>-t</code> option on the <code>git</code> <code>remote</code> <code>add</code> command line.</p>
 </div>
 <div class="paragraph">
 <p>With <code>--add</code>, instead of replacing the list of currently tracked
@@ -641,7 +644,7 @@ your publishing repository), use two separate remotes.</p>
 <p>Gives some information about the remote &lt;name&gt;.</p>
 <div class="paragraph">
 <p>With <code>-n</code> option, the remote heads are not queried first with
-<code>git ls-remote &lt;name&gt;</code>; cached information is used instead.</p>
+<code>git</code> <code>ls-remote</code> <em>&lt;name&gt;</em>; cached information is used instead.</p>
 </div>
 </dd>
 <dt class="hdlist1"><em>prune</em></dt>
@@ -649,8 +652,8 @@ your publishing repository), use two separate remotes.</p>
 <p>Deletes stale references associated with &lt;name&gt;. By default, stale
 remote-tracking branches under &lt;name&gt; are deleted, but depending on
 global configuration and the configuration of the remote we might even
-prune local tags that haven&#8217;t been pushed there. Equivalent to <code>git
-fetch --prune &lt;name&gt;</code>, except that no new references will be fetched.</p>
+prune local tags that haven&#8217;t been pushed there. Equivalent to <code>git</code>
+<code>fetch</code> <code>--prune</code> <em>&lt;name&gt;</em>, except that no new references will be fetched.</p>
 <div class="paragraph">
 <p>See the PRUNING section of <a href="git-fetch.html">git-fetch(1)</a> for what it&#8217;ll prune
 depending on various configuration.</p>
@@ -663,10 +666,10 @@ actually prune them.</p>
 <dt class="hdlist1"><em>update</em></dt>
 <dd>
 <p>Fetch updates for remotes or remote groups in the repository as defined by
-<code>remotes.&lt;group&gt;</code>. If neither group nor remote is specified on the command line,
+<code>remotes.</code><em>&lt;group&gt;</em>. If neither group nor remote is specified on the command line,
 the configuration parameter remotes.default will be used; if
 remotes.default is not defined, all remotes which do not have the
-configuration parameter <code>remote.&lt;name&gt;.skipDefaultUpdate</code> set to true will
+configuration parameter <code>remote.</code><em>&lt;name&gt;</em><code>.skipDefaultUpdate</code> set to true will
 be updated.  (See <a href="git-config.html">git-config(1)</a>).</p>
 <div class="paragraph">
 <p>With <code>--prune</code> option, run pruning against all the remotes that are updated.</p>
@@ -774,7 +777,7 @@ $ git merge origin</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

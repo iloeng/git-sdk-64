@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-stash(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -471,16 +474,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use <code>git stash</code> when you want to record the current state of the
+<p>Use <code>git</code> <code>stash</code> when you want to record the current state of the
 working directory and the index, but want to go back to a clean
 working directory.  The command saves your local modifications away
 and reverts the working directory to match the <code>HEAD</code> commit.</p>
 </div>
 <div class="paragraph">
 <p>The modifications stashed away by this command can be listed with
-<code>git stash list</code>, inspected with <code>git stash show</code>, and restored
-(potentially on top of a different commit) with <code>git stash apply</code>.
-Calling <code>git stash</code> without any arguments is equivalent to <code>git stash push</code>.
+<code>git</code> <code>stash</code> <code>list</code>, inspected with <code>git</code> <code>stash</code> <code>show</code>, and restored
+(potentially on top of a different commit) with <code>git</code> <code>stash</code> <code>apply</code>.
+Calling <code>git</code> <code>stash</code> without any arguments is equivalent to <code>git</code> <code>stash</code> <code>push</code>.
 A stash is by default listed as "WIP on <em>branchname</em> &#8230;&#8203;", but
 you can give a more descriptive message on the command line when
 you create one.</p>
@@ -488,10 +491,10 @@ you create one.</p>
 <div class="paragraph">
 <p>The latest stash you created is stored in <code>refs/stash</code>; older
 stashes are found in the reflog of this reference and can be named using
-the usual reflog syntax (e.g. <code>stash@{0}</code> is the most recently
-created stash, <code>stash@{1}</code> is the one before it, <code>stash@{2.hours.ago}</code>
+the usual reflog syntax (e.g. <code>stash@</code>{0} is the most recently
+created stash, <code>stash@</code>{1} is the one before it, <code>stash@</code>{2.<code>hours.ago</code>}
 is also possible). Stashes may also be referenced by specifying just the
-stash index (e.g. the integer <code>n</code> is equivalent to <code>stash@{n}</code>).</p>
+stash index (e.g. the integer <code>n</code> is equivalent to <code>stash@</code>{n}).</p>
 </div>
 </div>
 </div>
@@ -510,7 +513,7 @@ the description along with the stashed state.</p>
 <p>For quickly making a snapshot, you can omit "push".  In this mode,
 non-option arguments are not allowed to prevent a misspelled
 subcommand from making an unwanted stash entry.  The two exceptions to this
-are <code>stash -p</code> which acts as alias for <code>stash push -p</code> and pathspec elements,
+are <code>stash</code> <code>-p</code> which acts as alias for <code>stash</code> <code>push</code> <code>-p</code> and pathspec elements,
 which are allowed after a double hyphen <code>--</code> for disambiguation.</p>
 </div>
 </dd>
@@ -524,7 +527,7 @@ message.</p>
 <dt class="hdlist1">list [&lt;log-options&gt;]</dt>
 <dd>
 <p>List the stash entries that you currently have.  Each <em>stash entry</em> is
-listed with its name (e.g. <code>stash@{0}</code> is the latest entry, <code>stash@{1}</code> is
+listed with its name (e.g. <code>stash@</code>{0} is the latest entry, <code>stash@</code>{1} is
 the one before, etc.), the name of the branch that was current when the
 entry was made, and a short description of the commit the entry was
 based on.</p>
@@ -545,9 +548,9 @@ command to control what is shown and how. See <a href="git-log.html">git-log(1)<
 stashed contents and the commit back when the stash entry was first
 created.
 By default, the command shows the diffstat, but it will accept any
-format known to <em>git diff</em> (e.g., <code>git stash show -p stash@{1}</code>
+format known to <em>git diff</em> (e.g., <code>git</code> <code>stash</code> <code>show</code> <code>-p</code> <code>stash@</code>{1}
 to view the second most recent entry in patch form).
-If no <code>&lt;diff-option&gt;</code> is provided, the default behavior will be given
+If no <em>&lt;diff-option&gt;</em> is provided, the default behavior will be given
 by the <code>stash.showStat</code>, and <code>stash.showPatch</code> config variables. You
 can also use <code>stash.showIncludeUntracked</code> to set whether
 <code>--include-untracked</code> is enabled by default.</p>
@@ -556,32 +559,32 @@ can also use <code>stash.showIncludeUntracked</code> to set whether
 <dd>
 <p>Remove a single stashed state from the stash list and apply it
 on top of the current working tree state, i.e., do the inverse
-operation of <code>git stash push</code>. The working directory must
+operation of <code>git</code> <code>stash</code> <code>push</code>. The working directory must
 match the index.</p>
 <div class="paragraph">
 <p>Applying the state can fail with conflicts; in this case, it is not
 removed from the stash list. You need to resolve the conflicts by hand
-and call <code>git stash drop</code> manually afterwards.</p>
+and call <code>git</code> <code>stash</code> <code>drop</code> manually afterwards.</p>
 </div>
 </dd>
 <dt class="hdlist1">apply [--index] [-q|--quiet] [&lt;stash&gt;]</dt>
 <dd>
 <p>Like <code>pop</code>, but do not remove the state from the stash list. Unlike <code>pop</code>,
-<code>&lt;stash&gt;</code> may be any commit that looks like a commit created by
-<code>stash push</code> or <code>stash create</code>.</p>
+<em>&lt;stash&gt;</em> may be any commit that looks like a commit created by
+<code>stash</code> <code>push</code> or <code>stash</code> <code>create</code>.</p>
 </dd>
 <dt class="hdlist1">branch &lt;branchname&gt; [&lt;stash&gt;]</dt>
 <dd>
-<p>Creates and checks out a new branch named <code>&lt;branchname&gt;</code> starting from
-the commit at which the <code>&lt;stash&gt;</code> was originally created, applies the
-changes recorded in <code>&lt;stash&gt;</code> to the new working tree and index.
-If that succeeds, and <code>&lt;stash&gt;</code> is a reference of the form
-<code>stash@{&lt;revision&gt;}</code>, it then drops the <code>&lt;stash&gt;</code>.</p>
+<p>Creates and checks out a new branch named <em>&lt;branchname&gt;</em> starting from
+the commit at which the <em>&lt;stash&gt;</em> was originally created, applies the
+changes recorded in <em>&lt;stash&gt;</em> to the new working tree and index.
+If that succeeds, and <em>&lt;stash&gt;</em> is a reference of the form
+<code>stash@</code>{<em>&lt;revision&gt;</em>}, it then drops the <em>&lt;stash&gt;</em>.</p>
 <div class="paragraph">
-<p>This is useful if the branch on which you ran <code>git stash push</code> has
-changed enough that <code>git stash apply</code> fails due to conflicts. Since
+<p>This is useful if the branch on which you ran <code>git</code> <code>stash</code> <code>push</code> has
+changed enough that <code>git</code> <code>stash</code> <code>apply</code> fails due to conflicts. Since
 the stash entry is applied on top of the commit that was HEAD at the
-time <code>git stash</code> was run, it restores the originally stashed state
+time <code>git</code> <code>stash</code> was run, it restores the originally stashed state
 with no conflicts.</p>
 </div>
 </dd>
@@ -625,7 +628,7 @@ probably not the command you want to use; see "push" above.</p>
 <p>This option is only valid for <code>push</code> and <code>save</code> commands.</p>
 <div class="paragraph">
 <p>All ignored and untracked files are also stashed and then cleaned
-up with <code>git clean</code>.</p>
+up with <code>git</code> <code>clean</code>.</p>
 </div>
 </dd>
 <dt class="hdlist1">-u</dt>
@@ -634,7 +637,7 @@ up with <code>git clean</code>.</p>
 <dd>
 <p>When used with the <code>push</code> and <code>save</code> commands,
 all untracked files are also stashed and then cleaned up with
-<code>git clean</code>.</p>
+<code>git</code> <code>clean</code>.</p>
 <div class="paragraph">
 <p>When used with the <code>show</code> command, show the untracked files in the stash
 entry as part of the diff.</p>
@@ -690,7 +693,7 @@ to learn how to operate the <code>--patch</code> mode.</p>
 <p>This option is only valid for <code>push</code> and <code>save</code> commands.</p>
 <div class="paragraph">
 <p>Stash only the changes that are currently staged. This is similar to
-basic <code>git commit</code> except the state is committed to the stash instead
+basic <code>git</code> <code>commit</code> except the state is committed to the stash instead
 of current branch.</p>
 </div>
 <div class="paragraph">
@@ -701,8 +704,8 @@ of current branch.</p>
 <dd>
 <p>This option is only valid for <code>push</code> command.</p>
 <div class="paragraph">
-<p>Pathspec is passed in <code>&lt;file&gt;</code> instead of commandline args. If
-<code>&lt;file&gt;</code> is exactly <code>-</code> then standard input is used. Pathspec
+<p>Pathspec is passed in <em>&lt;file&gt;</em> instead of commandline args. If
+<em>&lt;file&gt;</em> is exactly <code>-</code> then standard input is used. Pathspec
 elements are separated by LF or CR/LF. Pathspec elements can be
 quoted as explained for the configuration variable <code>core.quotePath</code>
 (see <a href="git-config.html">git-config(1)</a>). See also <code>--pathspec-file-nul</code> and
@@ -752,8 +755,8 @@ too, leaving files that do not match the pathspec intact.</p>
 <p>This option is only valid for <code>apply</code>, <code>branch</code>, <code>drop</code>, <code>pop</code>,
 <code>show</code> commands.</p>
 <div class="paragraph">
-<p>A reference of the form <code>stash@{&lt;revision&gt;}</code>. When no <code>&lt;stash&gt;</code> is
-given, the latest stash is assumed (that is, <code>stash@{0}</code>).</p>
+<p>A reference of the form <code>stash@</code>{<em>&lt;revision&gt;</em>}. When no <em>&lt;stash&gt;</em> is
+given, the latest stash is assumed (that is, <code>stash@</code>{0}).</p>
 </div>
 </dd>
 </dl>
@@ -794,10 +797,10 @@ tree.</p>
 <p>When you are in the middle of something, you learn that there are
 upstream changes that are possibly relevant to what you are
 doing.  When your local changes do not conflict with the changes in
-the upstream, a simple <code>git pull</code> will let you move forward.</p>
+the upstream, a simple <code>git</code> <code>pull</code> will let you move forward.</p>
 <div class="paragraph">
 <p>However, there are cases in which your local changes do conflict with
-the upstream changes, and <code>git pull</code> refuses to overwrite your
+the upstream changes, and <code>git</code> <code>pull</code> refuses to overwrite your
 changes.  In such a case, you can stash your changes away,
 perform a pull, and then unstash, like this:</p>
 </div>
@@ -847,7 +850,7 @@ $ git stash pop
 </dd>
 <dt class="hdlist1">Testing partial commits</dt>
 <dd>
-<p>You can use <code>git stash push --keep-index</code> when you want to make two or
+<p>You can use <code>git</code> <code>stash</code> <code>push</code> <code>--keep-index</code> when you want to make two or
 more commits out of the changes in the work tree, and you want to test
 each change before committing:</p>
 <div class="listingblock">
@@ -868,7 +871,7 @@ $ git commit foo -m 'Remaining parts'</pre>
 <dd>
 <p>When you are in the middle of massive changes and you find some
 unrelated issue that you don&#8217;t want to forget to fix, you can do the
-change(s), stage them, and use <code>git stash push --staged</code> to stash them
+change(s), stage them, and use <code>git</code> <code>stash</code> <code>push</code> <code>--staged</code> to stash them
 out for future use. This is similar to committing the staged changes,
 only the commit ends-up being in the stash and not on the current branch.</p>
 <div class="listingblock">
@@ -876,7 +879,7 @@ only the commit ends-up being in the stash and not on the current branch.</p>
 <pre># ... hack hack hack ...
 $ git add --patch foo           # add unrelated changes to the index
 $ git stash push --staged       # save these changes to the stash
-# ... hack hack hack, finish curent changes ...
+# ... hack hack hack, finish current changes ...
 $ git commit -m 'Massive'       # commit fully tested changes
 $ git switch fixup-branch       # switch to another branch
 $ git stash pop                 # to finish work on the saved changes</pre>
@@ -913,21 +916,21 @@ as what&#8217;s found there:</p>
 <dl>
 <dt class="hdlist1">stash.showIncludeUntracked</dt>
 <dd>
-<p>If this is set to true, the <code>git stash show</code> command will show
+<p>If this is set to true, the <code>git</code> <code>stash</code> <code>show</code> command will show
 the untracked files of a stash entry.  Defaults to false. See
-description of <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
+the description of the <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
 </dd>
 <dt class="hdlist1">stash.showPatch</dt>
 <dd>
-<p>If this is set to true, the <code>git stash show</code> command without an
+<p>If this is set to true, the <code>git</code> <code>stash</code> <code>show</code> command without an
 option will show the stash entry in patch form.  Defaults to false.
-See description of <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
+See the description of the <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
 </dd>
 <dt class="hdlist1">stash.showStat</dt>
 <dd>
-<p>If this is set to true, the <code>git stash show</code> command without an
-option will show diffstat of the stash entry.  Defaults to true.
-See description of <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
+<p>If this is set to true, the <code>git</code> <code>stash</code> <code>show</code> command without an
+option will show a diffstat of the stash entry.  Defaults to true.
+See the description of the <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.</p>
 </dd>
 </dl>
 </div>
@@ -956,7 +959,7 @@ See description of <em>show</em> command in <a href="git-stash.html">git-stash(1
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

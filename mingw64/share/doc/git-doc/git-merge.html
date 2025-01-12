@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-merge(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -464,13 +467,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Incorporates changes from the named commits (since the time their
 histories diverged from the current branch) into the current
-branch.  This command is used by <em>git pull</em> to incorporate changes
+branch.  This command is used by <code>git</code> <code>pull</code> to incorporate changes
 from another repository and can be used by hand to merge changes
 from one branch into another.</p>
 </div>
 <div class="paragraph">
 <p>Assume the following history exists and the current branch is
-"<code>master</code>":</p>
+<code>master</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -480,7 +483,7 @@ from one branch into another.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Then "<code>git merge topic</code>" will replay the changes made on the
+<p>Then <code>git</code> <code>merge</code> <code>topic</code> will replay the changes made on the
 <code>topic</code> branch since it diverged from <code>master</code> (i.e., <code>E</code>) until
 its current commit (<code>C</code>) on top of <code>master</code>, and record the result
 in a new commit along with the names of the two parent commits and
@@ -495,22 +498,22 @@ a log message from the user describing the changes. Before the operation,
 </div>
 </div>
 <div class="paragraph">
-<p>The second syntax ("<code>git merge --abort</code>") can only be run after the
-merge has resulted in conflicts. <em>git merge --abort</em> will abort the
-merge process and try to reconstruct the pre-merge state. However,
-if there were uncommitted changes when the merge started (and
-especially if those changes were further modified after the merge
-was started), <em>git merge --abort</em> will in some cases be unable to
-reconstruct the original (pre-merge) changes. Therefore:</p>
+<p>A merge stops if there&#8217;s a conflict that cannot be resolved
+automatically or if <code>--no-commit</code> was provided when initiating the
+merge. At that point you can run <code>git</code> <code>merge</code> <code>--abort</code> or <code>git</code> <code>merge</code>
+<code>--continue</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Warning</strong>: Running <em>git merge</em> with non-trivial uncommitted changes is
+<p><code>git</code> <code>merge</code> <code>--abort</code> will abort the merge process and try to reconstruct
+the pre-merge state. However, if there were uncommitted changes when the
+merge started (and especially if those changes were further modified
+after the merge was started), <code>git</code> <code>merge</code> <code>--abort</code> will in some cases be
+unable to reconstruct the original (pre-merge) changes. Therefore:</p>
+</div>
+<div class="paragraph">
+<p><strong>Warning</strong>: Running <code>git</code> <code>merge</code> with non-trivial uncommitted changes is
 discouraged: while possible, it may leave you in a state that is hard to
 back out of in the case of a conflict.</p>
-</div>
-<div class="paragraph">
-<p>The third syntax ("<code>git merge --continue</code>") can only be run after the
-merge has resulted in conflicts.</p>
 </div>
 </div>
 </div>
@@ -551,7 +554,7 @@ and want to edit it in the editor.</p>
 <div class="paragraph">
 <p>Older scripts may depend on the historical behaviour of not allowing the
 user to edit the merge log message. They will see an editor opened when
-they run <code>git merge</code>. To make it easier to adjust such scripts to the
+they run <code>git</code> <code>merge</code>. To make it easier to adjust such scripts to the
 updated behaviour, the environment variable <code>GIT_MERGE_AUTOEDIT</code> can be
 set to <code>no</code> at the beginning of them.</p>
 </div>
@@ -618,7 +621,7 @@ to which you&#8217;re committing.  For example, it may certify that
 the committer has the rights to submit the work under the
 project&#8217;s license or agrees to some contributor representation,
 such as a Developer Certificate of Origin.
-(See <a href="http://developercertificate.org" class="bare">http://developercertificate.org</a> for the one used by the
+(See <a href="https://developercertificate.org" class="bare">https://developercertificate.org</a> for the one used by the
 Linux kernel and Git projects.)  Consult the documentation or
 leadership of the project to which you&#8217;re contributing to
 understand how the signoffs are used in that project.</p>
@@ -644,7 +647,7 @@ merge.</p>
 <p>Produce the working tree and index state as if a real merge
 happened (except for the merge information), but do not actually
 make a commit, move the <code>HEAD</code>, or record <code>$GIT_DIR/MERGE_HEAD</code>
-(to cause the next <code>git commit</code> command to create a merge
+(to cause the next <code>git</code> <code>commit</code> command to create a merge
 commit).  This allows you to create a single commit on top of
 the current branch whose effect is the same as merging another
 branch (or more in case of an octopus).</p>
@@ -714,7 +717,7 @@ reporting.</p>
 <dt class="hdlist1">--no-autostash</dt>
 <dd>
 <p>Automatically create a temporary stash entry before the operation
-begins, record it in the special ref <code>MERGE_AUTOSTASH</code>
+begins, record it in the ref <code>MERGE_AUTOSTASH</code>
 and apply it after the operation ends.  This means
 that you can run the operation on a dirty worktree.  However, use
 with care: the final stash application after a successful
@@ -722,7 +725,7 @@ merge might result in non-trivial conflicts.</p>
 </dd>
 <dt class="hdlist1">--allow-unrelated-histories</dt>
 <dd>
-<p>By default, <code>git merge</code> command refuses to merge histories
+<p>By default, <code>git</code> <code>merge</code> command refuses to merge histories
 that do not share a common ancestor.  This option can be
 used to override this safety when merging histories of two
 projects that started their lives independently. As that is
@@ -738,15 +741,15 @@ case one is created).</p>
 will be appended to the specified message.</p>
 </div>
 <div class="paragraph">
-<p>The <em>git fmt-merge-msg</em> command can be
-used to give a good default for automated <em>git merge</em>
+<p>The <code>git</code> <code>fmt-merge-msg</code> command can be
+used to give a good default for automated <code>git</code> <code>merge</code>
 invocations. The automated message can include the branch description.</p>
 </div>
 </dd>
 <dt class="hdlist1">--into-name &lt;branch&gt;</dt>
 <dd>
 <p>Prepare the default merge message as if merging to the branch
-<code>&lt;branch&gt;</code>, instead of the name of the real branch to which
+<em>&lt;branch&gt;</em>, instead of the name of the real branch to which
 the merge is made.</p>
 </dd>
 <dt class="hdlist1">-F &lt;file&gt;</dt>
@@ -768,7 +771,7 @@ tree, allow it to also update the index with the result of
 resolution.  <code>--no-rerere-autoupdate</code> is a good way to
 double-check what <code>rerere</code> did and catch potential
 mismerges, before committing the result to the index with a
-separate <code>git add</code>.</p>
+separate <code>git</code> <code>add</code>.</p>
 </dd>
 <dt class="hdlist1">--overwrite-ignore</dt>
 <dt class="hdlist1">--no-overwrite-ignore</dt>
@@ -783,15 +786,15 @@ try to reconstruct the pre-merge state. If an autostash entry is
 present, apply it to the worktree.</p>
 <div class="paragraph">
 <p>If there were uncommitted worktree changes present when the merge
-started, <em>git merge --abort</em> will in some cases be unable to
+started, <code>git</code> <code>merge</code> <code>--abort</code> will in some cases be unable to
 reconstruct these changes. It is therefore recommended to always
-commit or stash your changes before running <em>git merge</em>.</p>
+commit or stash your changes before running <code>git</code> <code>merge</code>.</p>
 </div>
 <div class="paragraph">
-<p><em>git merge --abort</em> is equivalent to <em>git reset --merge</em> when
+<p><code>git</code> <code>merge</code> <code>--abort</code> is equivalent to <code>git</code> <code>reset</code> <code>--merge</code> when
 <code>MERGE_HEAD</code> is present unless <code>MERGE_AUTOSTASH</code> is also present in
-which case <em>git merge --abort</em> applies the stash entry to the worktree
-whereas <em>git reset --merge</em> will save the stashed changes in the stash
+which case <code>git</code> <code>merge</code> <code>--abort</code> applies the stash entry to the worktree
+whereas <code>git</code> <code>reset</code> <code>--merge</code> will save the stashed changes in the stash
 list.</p>
 </div>
 </dd>
@@ -803,8 +806,8 @@ stash entry will be saved to the stash list.</p>
 </dd>
 <dt class="hdlist1">--continue</dt>
 <dd>
-<p>After a <em>git merge</em> stops due to conflicts you can conclude the
-merge by running <em>git merge --continue</em> (see "HOW TO RESOLVE
+<p>After a <code>git</code> <code>merge</code> stops due to conflicts you can conclude the
+merge by running <code>git</code> <code>merge</code> <code>--continue</code> (see "HOW TO RESOLVE
 CONFLICTS" section below).</p>
 </dd>
 <dt class="hdlist1">&lt;commit&gt;&#8230;&#8203;</dt>
@@ -819,8 +822,8 @@ See also the configuration section of this manual page.</p>
 </div>
 <div class="paragraph">
 <p>When <code>FETCH_HEAD</code> (and no other commit) is specified, the branches
-recorded in the <code>.git/FETCH_HEAD</code> file by the previous invocation
-of <code>git fetch</code> for merging are merged to the current branch.</p>
+recorded in the .<code>git/FETCH_HEAD</code> file by the previous invocation
+of <code>git</code> <code>fetch</code> for merging are merged to the current branch.</p>
 </div>
 </dd>
 </dl>
@@ -834,19 +837,19 @@ of <code>git fetch</code> for merging are merged to the current branch.</p>
 <p>Before applying outside changes, you should get your own work in
 good shape and committed locally, so it will not be clobbered if
 there are conflicts.  See also <a href="git-stash.html">git-stash(1)</a>.
-<em>git pull</em> and <em>git merge</em> will stop without doing anything when
-local uncommitted changes overlap with files that <em>git pull</em>/<em>git
-merge</em> may need to update.</p>
+<code>git</code> <code>pull</code> and <code>git</code> <code>merge</code> will stop without doing anything when
+local uncommitted changes overlap with files that <code>git</code> <code>pull</code>/<code>git</code>
+<code>merge</code> may need to update.</p>
 </div>
 <div class="paragraph">
 <p>To avoid recording unrelated changes in the merge commit,
-<em>git pull</em> and <em>git merge</em> will also abort if there are any changes
+<code>git</code> <code>pull</code> and <code>git</code> <code>merge</code> will also abort if there are any changes
 registered in the index relative to the <code>HEAD</code> commit.  (Special
 narrow exceptions to this rule may exist depending on which merge
 strategy is in use, but generally, the index must match HEAD.)</p>
 </div>
 <div class="paragraph">
-<p>If all named commits are already ancestors of <code>HEAD</code>, <em>git merge</em>
+<p>If all named commits are already ancestors of <code>HEAD</code>, <code>git</code> <code>merge</code>
 will exit early with the message "Already up to date."</p>
 </div>
 </div>
@@ -856,8 +859,8 @@ will exit early with the message "Already up to date."</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Often the current branch head is an ancestor of the named commit.
-This is the most common case especially when invoked from <em>git
-pull</em>: you are tracking an upstream repository, you have committed
+This is the most common case especially when invoked from <code>git</code>
+<code>pull</code>: you are tracking an upstream repository, you have committed
 no local changes, and now you want to update to a newer upstream
 revision.  In this case, a new commit is not needed to store the
 combined history; instead, the <code>HEAD</code> (along with the index) is
@@ -903,9 +906,15 @@ in your working tree.</p>
 <p>For conflicting paths, the index file records up to three
 versions: stage 1 stores the version from the common ancestor,
 stage 2 from <code>HEAD</code>, and stage 3 from <code>MERGE_HEAD</code> (you
-can inspect the stages with <code>git ls-files -u</code>).  The working
-tree files contain the result of the "merge" program; i.e. 3-way
-merge results with familiar conflict markers <code>&lt;&lt;&lt;</code> <code>===</code> <code>&gt;&gt;&gt;</code>.</p>
+can inspect the stages with <code>git</code> <code>ls-files</code> <code>-u</code>).  The working
+tree files contain the result of the merge operation; i.e. 3-way
+merge results with familiar conflict markers &lt;&lt;&lt; <code>===</code> &gt;&gt;&gt;.</p>
+</li>
+<li>
+<p>A ref named <code>AUTO_MERGE</code> is written, pointing to a tree
+corresponding to the current content of the working tree (including
+conflict markers for textual conflicts).  Note that this ref is only
+written when the <em>ort</em> merge strategy is used (the default).</p>
 </li>
 <li>
 <p>No other changes are made.  In particular, the local
@@ -917,7 +926,7 @@ i.e. matching <code>HEAD</code>.</p>
 </div>
 <div class="paragraph">
 <p>If you tried a merge which resulted in complex conflicts and
-want to start over, you can recover with <code>git merge --abort</code>.</p>
+want to start over, you can recover with <code>git</code> <code>merge</code> <code>--abort</code>.</p>
 </div>
 </div>
 </div>
@@ -938,7 +947,7 @@ release point, you may not want to make an unnecessary merge commit.</p>
 </div>
 <div class="paragraph">
 <p>In such a case, you can "unwrap" the tag yourself before feeding it
-to <code>git merge</code>, or pass <code>--ff-only</code> when you do not have any work on
+to <code>git</code> <code>merge</code>, or pass <code>--ff-only</code> when you do not have any work on
 your own. e.g.</p>
 </div>
 <div class="listingblock">
@@ -982,7 +991,7 @@ And here is another line that is cleanly resolved or unmodified.</pre>
 </div>
 <div class="paragraph">
 <p>The area where a pair of conflicting changes happened is marked with markers
-<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.  The part before the <code>=======</code>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;, <code>=======</code>, and &gt;&gt;&gt;&gt;&gt;&gt;&gt;.  The part before the <code>=======</code>
 is typically your side, and the part afterwards is typically their side.</p>
 </div>
 <div class="paragraph">
@@ -993,7 +1002,7 @@ side wants to say it is hard and you&#8217;d prefer to go shopping, while the
 other side wants to claim it is easy.</p>
 </div>
 <div class="paragraph">
-<p>An alternative style can be used by setting the "merge.conflictStyle"
+<p>An alternative style can be used by setting the <code>merge.conflictStyle</code>
 configuration variable to either "diff3" or "zdiff3".  In "diff3"
 style, the above conflict may look like this:</p>
 </div>
@@ -1036,8 +1045,8 @@ And here is another line that is cleanly resolved or unmodified.</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In addition to the <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> markers, it uses
-another <code>|||||||</code> marker that is followed by the original text.  You can
+<p>In addition to the &lt;&lt;&lt;&lt;&lt;&lt;&lt;, <code>=======</code>, and &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers, it uses
+another ||||||| marker that is followed by the original text.  You can
 tell that the original just stated a fact, and your side simply gave in to
 that statement and gave up, while the other side tried to have a more
 positive attitude.  You can sometimes come up with a better resolution by
@@ -1056,16 +1065,16 @@ viewing the original.</p>
 <li>
 <p>Decide not to merge.  The only clean-ups you need are to reset
 the index file to the <code>HEAD</code> commit to reverse 2. and to clean
-up working tree changes made by 2. and 3.; <code>git merge --abort</code>
+up working tree changes made by 2. and 3.; <code>git</code> <code>merge</code> <code>--abort</code>
 can be used for this.</p>
 </li>
 <li>
 <p>Resolve the conflicts.  Git will mark the conflicts in
 the working tree.  Edit the files into shape and
-<em>git add</em> them to the index.  Use <em>git commit</em> or
-<em>git merge --continue</em> to seal the deal. The latter command
+<code>git</code> <code>add</code> them to the index.  Use <code>git</code> <code>commit</code> or
+<code>git</code> <code>merge</code> <code>--continue</code> to seal the deal. The latter command
 checks whether there is a (interrupted) merge in progress
-before calling <em>git commit</em>.</p>
+before calling <code>git</code> <code>commit</code>.</p>
 </li>
 </ul>
 </div>
@@ -1075,23 +1084,24 @@ before calling <em>git commit</em>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Use a mergetool.  <code>git mergetool</code> to launch a graphical
-mergetool which will work you through the merge.</p>
+<p>Use a mergetool.  <code>git</code> <code>mergetool</code> to launch a graphical
+mergetool which will work through the merge with you.</p>
 </li>
 <li>
-<p>Look at the diffs.  <code>git diff</code> will show a three-way diff,
+<p>Look at the diffs.  <code>git</code> <code>diff</code> will show a three-way diff,
 highlighting changes from both the <code>HEAD</code> and <code>MERGE_HEAD</code>
-versions.</p>
+versions. <code>git</code> <code>diff</code> <code>AUTO_MERGE</code> will show what changes you&#8217;ve
+made so far to resolve textual conflicts.</p>
 </li>
 <li>
-<p>Look at the diffs from each branch. <code>git log --merge -p &lt;path&gt;</code>
+<p>Look at the diffs from each branch. <code>git</code> <code>log</code> <code>--merge</code> <code>-p</code> <em>&lt;path&gt;</em>
 will show diffs first for the <code>HEAD</code> version and then the
 <code>MERGE_HEAD</code> version.</p>
 </li>
 <li>
-<p>Look at the originals.  <code>git show :1:filename</code> shows the
-common ancestor, <code>git show :2:filename</code> shows the <code>HEAD</code>
-version, and <code>git show :3:filename</code> shows the <code>MERGE_HEAD</code>
+<p>Look at the originals.  <code>git</code> <code>show</code> <code>:1:filename</code> shows the
+common ancestor, <code>git</code> <code>show</code> <code>:2:filename</code> shows the <code>HEAD</code>
+version, and <code>git</code> <code>show</code> <code>:3:filename</code> shows the <code>MERGE_HEAD</code>
 version.</p>
 </li>
 </ul>
@@ -1147,10 +1157,10 @@ release/version name would be acceptable.</p>
 <h2 id="_merge_strategies">MERGE STRATEGIES</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The merge mechanism (<code>git merge</code> and <code>git pull</code> commands) allows the
+<p>The merge mechanism (<code>git</code> <code>merge</code> and <code>git</code> <code>pull</code> commands) allows the
 backend <em>merge strategies</em> to be chosen with <code>-s</code> option.  Some strategies
-can also take their own options, which can be passed by giving <code>-X&lt;option&gt;</code>
-arguments to <code>git merge</code> and/or <code>git pull</code>.</p>
+can also take their own options, which can be passed by giving <code>-X</code><em>&lt;option&gt;</em>
+arguments to <code>git</code> <code>merge</code> and/or <code>git</code> <code>pull</code>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -1241,7 +1251,7 @@ See also <a href="git-diff.html">git-diff(1)</a> <code>--find-renames</code>.</p
 </dd>
 <dt class="hdlist1">rename-threshold=&lt;n&gt;</dt>
 <dd>
-<p>Deprecated synonym for <code>find-renames=&lt;n&gt;</code>.</p>
+<p>Deprecated synonym for <code>find-renames=</code><em>&lt;n&gt;</em>.</p>
 </dd>
 <dt class="hdlist1">subtree[=&lt;path&gt;]</dt>
 <dd>
@@ -1350,7 +1360,7 @@ substitutes the changed version instead.</p>
 <dt class="hdlist1">branch.&lt;name&gt;.mergeOptions</dt>
 <dd>
 <p>Sets default options for merging into branch &lt;name&gt;. The syntax and
-supported options are the same as those of <em>git merge</em>, but option
+supported options are the same as those of <code>git</code> <code>merge</code>, but option
 values containing whitespace characters are currently not supported.</p>
 </dd>
 </dl>
@@ -1366,13 +1376,13 @@ same as what&#8217;s found there:</p>
 <dd>
 <p>Specify the style in which conflicted hunks are written out to
 working tree files upon merge.  The default is "merge", which
-shows a <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> conflict marker, changes made by one side,
+shows a &lt;&lt;&lt;&lt;&lt;&lt;&lt; conflict marker, changes made by one side,
 a <code>=======</code> marker, changes made by the other side, and then
-a <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> marker.  An alternate style, "diff3", adds a <code>|||||||</code>
+a &gt;&gt;&gt;&gt;&gt;&gt;&gt; marker.  An alternate style, "diff3", adds a |||||||
 marker and the original text before the <code>=======</code> marker.  The
 "merge" style tends to produce smaller conflict regions than diff3,
 both because of the exclusion of the original text, and because
-when a subset of lines match on the two sides they are just pulled
+when a subset of lines match on the two sides, they are just pulled
 out of the conflict region.  Another alternate style, "zdiff3", is
 similar to diff3 but removes matching lines on the two sides from
 the conflict region when those matching lines appear near either
@@ -1383,9 +1393,9 @@ the beginning or end of a conflict region.</p>
 <p>If merge is called without any commit argument, merge the upstream
 branches configured for the current branch by using their last
 observed values stored in their remote-tracking branches.
-The values of the <code>branch.&lt;current branch&gt;.merge</code> that name the
-branches at the remote named by <code>branch.&lt;current branch&gt;.remote</code>
-are consulted, and then they are mapped via <code>remote.&lt;remote&gt;.fetch</code>
+The values of the <code>branch.</code>&lt;current <code>branch</code>&gt;<code>.merge</code> that name the
+branches at the remote named by <code>branch.</code>&lt;current <code>branch</code>&gt;<code>.remote</code>
+are consulted, and then they are mapped via <code>remote.</code><em>&lt;remote&gt;</em><code>.fetch</code>
 to their corresponding remote-tracking branches, and the tips of
 these tracking branches are merged. Defaults to true.</p>
 </dd>
@@ -1553,7 +1563,7 @@ corresponding mergetool.&lt;guitool&gt;.cmd variable is defined.</p>
 </dd>
 <dt class="hdlist1"><code>gvimdiff</code></dt>
 <dd>
-<p>Use gVim (requires a graphical session) with a custom layout (see <code>git help mergetool</code>'s <code>BACKEND SPECIFIC HINTS</code> section)</p>
+<p>Use gVim (requires a graphical session) with a custom layout (see <code>git</code> <code>help</code> <code>mergetool</code>'s <code>BACKEND</code> <code>SPECIFIC</code> <code>HINTS</code> section)</p>
 </dd>
 <dt class="hdlist1"><code>gvimdiff1</code></dt>
 <dd>
@@ -1573,11 +1583,11 @@ corresponding mergetool.&lt;guitool&gt;.cmd variable is defined.</p>
 </dd>
 <dt class="hdlist1"><code>meld</code></dt>
 <dd>
-<p>Use Meld (requires a graphical session) with optional <code>auto merge</code> (see <code>git help mergetool</code>'s <code>CONFIGURATION</code> section)</p>
+<p>Use Meld (requires a graphical session) with optional <code>auto</code> <code>merge</code> (see <code>git</code> <code>help</code> <code>mergetool</code>'s <code>CONFIGURATION</code> section)</p>
 </dd>
 <dt class="hdlist1"><code>nvimdiff</code></dt>
 <dd>
-<p>Use Neovim with a custom layout (see <code>git help mergetool</code>'s <code>BACKEND SPECIFIC HINTS</code> section)</p>
+<p>Use Neovim with a custom layout (see <code>git</code> <code>help</code> <code>mergetool</code>'s <code>BACKEND</code> <code>SPECIFIC</code> <code>HINTS</code> section)</p>
 </dd>
 <dt class="hdlist1"><code>nvimdiff1</code></dt>
 <dd>
@@ -1613,7 +1623,7 @@ corresponding mergetool.&lt;guitool&gt;.cmd variable is defined.</p>
 </dd>
 <dt class="hdlist1"><code>vimdiff</code></dt>
 <dd>
-<p>Use Vim with a custom layout (see <code>git help mergetool</code>'s <code>BACKEND SPECIFIC HINTS</code> section)</p>
+<p>Use Vim with a custom layout (see <code>git</code> <code>help</code> <code>mergetool</code>'s <code>BACKEND</code> <code>SPECIFIC</code> <code>HINTS</code> section)</p>
 </dd>
 <dt class="hdlist1"><code>vimdiff1</code></dt>
 <dd>
@@ -1626,6 +1636,10 @@ corresponding mergetool.&lt;guitool&gt;.cmd variable is defined.</p>
 <dt class="hdlist1"><code>vimdiff3</code></dt>
 <dd>
 <p>Use Vim where only the MERGED file is shown</p>
+</dd>
+<dt class="hdlist1"><code>vscode</code></dt>
+<dd>
+<p>Use Visual Studio Code (requires a graphical session)</p>
 </dd>
 <dt class="hdlist1"><code>winmerge</code></dt>
 <dd>
@@ -1691,7 +1705,7 @@ See <a href="gitattributes.html">gitattributes(5)</a> for details.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

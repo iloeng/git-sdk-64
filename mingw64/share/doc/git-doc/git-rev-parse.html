@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-rev-parse(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -449,7 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="verseblock">
-<pre class="content"><em>git rev-parse</em> [&lt;options&gt;] &lt;args&gt;&#8230;&#8203;</pre>
+<pre class="content"><em>git rev-parse</em> [&lt;options&gt;] &lt;arg&gt;&#8230;&#8203;</pre>
 </div>
 </div>
 </div>
@@ -457,12 +460,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Many Git porcelainish commands take mixture of flags
+<p>Many Git porcelainish commands take a mixture of flags
 (i.e. parameters that begin with a dash <em>-</em>) and parameters
 meant for the underlying <em>git rev-list</em> command they use internally
 and flags and parameters for the other commands they use
-downstream of <em>git rev-list</em>.  This command is used to
-distinguish between them.</p>
+downstream of <em>git rev-list</em>.  The primary purpose of this command
+is to allow calling programs to distinguish between them.  There are
+a few other operation modes that have nothing to do with the above
+"help parse command line options".</p>
+</div>
+<div class="paragraph">
+<p>Unless otherwise specified, most of the options and operation modes
+require you to run this command inside a git repository or a working
+tree that is under the control of a git repository, and will give you
+a fatal error otherwise.</p>
 </div>
 </div>
 </div>
@@ -478,13 +489,17 @@ distinguish between them.</p>
 <dl>
 <dt class="hdlist1">--parseopt</dt>
 <dd>
-<p>Use <em>git rev-parse</em> in option parsing mode (see PARSEOPT section below).</p>
+<p>Use <em>git rev-parse</em> in option parsing mode (see PARSEOPT section below).
+The command in this mode can be used outside a repository or
+a working tree controlled by a repository.</p>
 </dd>
 <dt class="hdlist1">--sq-quote</dt>
 <dd>
 <p>Use <em>git rev-parse</em> in shell quoting mode (see SQ-QUOTE
 section below). In contrast to the <code>--sq</code> option below, this
-mode does only quoting. Nothing else is done to command input.</p>
+mode only does quoting. Nothing else is done to command input.
+The command in this mode can be used outside a repository or
+a working tree controlled by a repository.</p>
 </dd>
 </dl>
 </div>
@@ -543,14 +558,14 @@ long form if available, and with their arguments stuck.</p>
 <dl>
 <dt class="hdlist1">--default &lt;arg&gt;</dt>
 <dd>
-<p>If there is no parameter given by the user, use <code>&lt;arg&gt;</code>
+<p>If there is no parameter given by the user, use <em>&lt;arg&gt;</em>
 instead.</p>
 </dd>
 <dt class="hdlist1">--prefix &lt;arg&gt;</dt>
 <dd>
-<p>Behave as if <em>git rev-parse</em> was invoked from the <code>&lt;arg&gt;</code>
+<p>Behave as if <em>git rev-parse</em> was invoked from the <em>&lt;arg&gt;</em>
 subdirectory of the working tree.  Any relative filenames are
-resolved as if they are prefixed by <code>&lt;arg&gt;</code> and will be printed
+resolved as if they are prefixed by <em>&lt;arg&gt;</em> and will be printed
 in that form.</p>
 <div class="paragraph">
 <p>This can be used to convert arguments to a command run in a subdirectory
@@ -575,11 +590,11 @@ output; otherwise, error out.</p>
 <div class="paragraph">
 <p>If you want to make sure that the output actually names an object in
 your object database and/or can be used as a specific type of object
-you require, you can add the <code>^{type}</code> peeling operator to the parameter.
-For example, <code>git rev-parse "$VAR^{commit}"</code> will make sure <code>$VAR</code>
+you require, you can add the <code>^</code>{type} peeling operator to the parameter.
+For example, <code>git</code> <code>rev-parse</code> "$VAR^{commit}" will make sure <code>$VAR</code>
 names an existing object that is a commit-ish (i.e. a commit, or an
 annotated tag that points at a commit).  To make sure that <code>$VAR</code>
-names an existing object of any type, <code>git rev-parse "$VAR^{object}"</code>
+names an existing object of any type, <code>git</code> <code>rev-parse</code> "$VAR^{object}"
 can be used.</p>
 </div>
 <div class="paragraph">
@@ -606,7 +621,7 @@ newlines (e.g. when using pickaxe <code>-S</code> with
 <em>git diff-*</em>). In contrast to the <code>--sq-quote</code> option,
 the command input is still interpreted as usual.</p>
 </dd>
-<dt class="hdlist1">--short[=length]</dt>
+<dt class="hdlist1">--short[=&lt;length&gt;]</dt>
 <dd>
 <p>Same as <code>--verify</code> but shortens the object name to a unique
 prefix with at least <code>length</code> characters. The minimum length
@@ -637,8 +652,29 @@ form as close to the original input as possible.</p>
 are not refs (i.e. branch or tag names; or more
 explicitly disambiguating "heads/master" form, when you
 want to name the "master" branch when there is an
-unfortunately named tag "master"), and show them as full
+unfortunately named tag "master"), and shows them as full
 refnames (e.g. "refs/heads/master").</p>
+</dd>
+<dt class="hdlist1">--output-object-format=(sha1|sha256|storage)</dt>
+<dd>
+<p>Allow oids to be input from any object format that the current
+repository supports.</p>
+<div class="literalblock">
+<div class="content">
+<pre>Specifying "sha1" translates if necessary and returns a sha1 oid.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Specifying "sha256" translates if necessary and returns a sha256 oid.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Specifying "storage" translates if necessary and returns an oid in
+encoded in the storage hash algorithm.</pre>
+</div>
+</div>
 </dd>
 </dl>
 </div>
@@ -651,26 +687,26 @@ refnames (e.g. "refs/heads/master").</p>
 <dd>
 <p>Show all refs found in <code>refs/</code>.</p>
 </dd>
-<dt class="hdlist1">--branches[=pattern]</dt>
-<dt class="hdlist1">--tags[=pattern]</dt>
-<dt class="hdlist1">--remotes[=pattern]</dt>
+<dt class="hdlist1">--branches[=&lt;pattern&gt;]</dt>
+<dt class="hdlist1">--tags[=&lt;pattern&gt;]</dt>
+<dt class="hdlist1">--remotes[=&lt;pattern&gt;]</dt>
 <dd>
 <p>Show all branches, tags, or remote-tracking branches,
 respectively (i.e., refs found in <code>refs/heads</code>,
 <code>refs/tags</code>, or <code>refs/remotes</code>, respectively).</p>
 <div class="paragraph">
 <p>If a <code>pattern</code> is given, only refs matching the given shell glob are
-shown.  If the pattern does not contain a globbing character (<code>?</code>,
-<code>*</code>, or <code>[</code>), it is turned into a prefix match by appending <code>/*</code>.</p>
+shown.  If the pattern does not contain a globbing character (?,
+*, or [), it is turned into a prefix match by appending <code>/</code>*.</p>
 </div>
 </dd>
-<dt class="hdlist1">--glob=pattern</dt>
+<dt class="hdlist1">--glob=&lt;pattern&gt;</dt>
 <dd>
 <p>Show all refs matching the shell glob pattern <code>pattern</code>. If
 the pattern does not start with <code>refs/</code>, this is automatically
 prepended.  If the pattern does not contain a globbing
-character (<code>?</code>, <code>*</code>, or <code>[</code>), it is turned into a prefix
-match by appending <code>/*</code>.</p>
+character (?, *, or [), it is turned into a prefix
+match by appending <code>/</code>*.</p>
 </dd>
 <dt class="hdlist1">--exclude=&lt;glob-pattern&gt;</dt>
 <dd>
@@ -688,7 +724,7 @@ or <code>--all</code>. If a trailing <em>/*</em> is intended, it must be given
 explicitly.</p>
 </div>
 </dd>
-<dt class="hdlist1">--exclude-hidden=[fetch|receive|uploadpack]</dt>
+<dt class="hdlist1">--exclude-hidden=(fetch|receive|uploadpack)</dt>
 <dd>
 <p>Do not include refs that would be hidden by <code>git-fetch</code>,
 <code>git-receive-pack</code> or <code>git-upload-pack</code> by consulting the appropriate
@@ -829,9 +865,13 @@ directory.</p>
 <dt class="hdlist1">--show-object-format[=(storage|input|output)]</dt>
 <dd>
 <p>Show the object format (hash algorithm) used for the repository
-for storage inside the <code>.git</code> directory, input, or output. For
+for storage inside the .<code>git</code> directory, input, or output. For
 input, multiple algorithms may be printed, space-separated.
 If not specified, the default is "storage".</p>
+</dd>
+<dt class="hdlist1">--show-ref-format</dt>
+<dd>
+<p>Show the reference storage format used for the repository.</p>
 </dd>
 </dl>
 </div>
@@ -840,19 +880,19 @@ If not specified, the default is "storage".</p>
 <h3 id="_other_options">Other Options</h3>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">--since=datestring</dt>
-<dt class="hdlist1">--after=datestring</dt>
+<dt class="hdlist1">--since=&lt;datestring&gt;</dt>
+<dt class="hdlist1">--after=&lt;datestring&gt;</dt>
 <dd>
 <p>Parse the date string, and output the corresponding
 --max-age= parameter for <em>git rev-list</em>.</p>
 </dd>
-<dt class="hdlist1">--until=datestring</dt>
-<dt class="hdlist1">--before=datestring</dt>
+<dt class="hdlist1">--until=&lt;datestring&gt;</dt>
+<dt class="hdlist1">--before=&lt;datestring&gt;</dt>
 <dd>
 <p>Parse the date string, and output the corresponding
 --min-age= parameter for <em>git rev-list</em>.</p>
 </dd>
-<dt class="hdlist1">&lt;args&gt;&#8230;&#8203;</dt>
+<dt class="hdlist1">&lt;arg&gt;&#8230;&#8203;</dt>
 <dd>
 <p>Flags and parameters to be parsed.</p>
 </dd>
@@ -897,7 +937,7 @@ your repository whose object name starts with dae86e.</p>
 </dd>
 <dt class="hdlist1"><em>&lt;describeOutput&gt;</em>, e.g. <em>v1.7.4.2-679-g3bee7fb</em></dt>
 <dd>
-<p>Output from <code>git describe</code>; i.e. a closest tag, optionally
+<p>Output from <code>git</code> <code>describe</code>; i.e. a closest tag, optionally
 followed by a dash and a number of commits, followed by a dash, a
 <em>g</em>, and an abbreviated object name.</p>
 </dd>
@@ -913,8 +953,9 @@ first match in the following rules:</p>
 <ol class="arabic">
 <li>
 <p>If <em>$GIT_DIR/&lt;refname&gt;</em> exists, that is what you mean (this is usually
-useful only for <code>HEAD</code>, <code>FETCH_HEAD</code>, <code>ORIG_HEAD</code>, <code>MERGE_HEAD</code>
-and <code>CHERRY_PICK_HEAD</code>);</p>
+useful only for <code>HEAD</code>, <code>FETCH_HEAD</code>, <code>ORIG_HEAD</code>, <code>MERGE_HEAD</code>,
+<code>REBASE_HEAD</code>, <code>REVERT_HEAD</code>, <code>CHERRY_PICK_HEAD</code>, <code>BISECT_HEAD</code>
+and <code>AUTO_MERGE</code>);</p>
 </li>
 <li>
 <p>otherwise, <em>refs/&lt;refname&gt;</em> if it exists;</p>
@@ -930,28 +971,65 @@ and <code>CHERRY_PICK_HEAD</code>);</p>
 </li>
 <li>
 <p>otherwise, <em>refs/remotes/&lt;refname&gt;/HEAD</em> if it exists.</p>
-<div class="paragraph">
-<p><code>HEAD</code> names the commit on which you based the changes in the working tree.
-<code>FETCH_HEAD</code> records the branch which you fetched from a remote repository
-with your last <code>git fetch</code> invocation.
-<code>ORIG_HEAD</code> is created by commands that move your <code>HEAD</code> in a drastic
-way (<code>git am</code>, <code>git merge</code>, <code>git rebase</code>, <code>git reset</code>),
-to record the position of the <code>HEAD</code> before their operation, so that
-you can easily change the tip of the branch back to the state before you ran
-them.
-<code>MERGE_HEAD</code> records the commit(s) which you are merging into your branch
-when you run <code>git merge</code>.
-<code>CHERRY_PICK_HEAD</code> records the commit which you are cherry-picking
-when you run <code>git cherry-pick</code>.</p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>HEAD</code></dt>
+<dd>
+<p>names the commit on which you based the changes in the working tree.</p>
+</dd>
+<dt class="hdlist1"><code>FETCH_HEAD</code></dt>
+<dd>
+<p>records the branch which you fetched from a remote repository with
+your last <code>git</code> <code>fetch</code> invocation.</p>
+</dd>
+<dt class="hdlist1"><code>ORIG_HEAD</code></dt>
+<dd>
+<p>is created by commands that move your <code>HEAD</code> in a drastic way (<code>git</code>
+<code>am</code>, <code>git</code> <code>merge</code>, <code>git</code> <code>rebase</code>, <code>git</code> <code>reset</code>), to record the position
+of the <code>HEAD</code> before their operation, so that you can easily change
+the tip of the branch back to the state before you ran them.</p>
+</dd>
+<dt class="hdlist1"><code>MERGE_HEAD</code></dt>
+<dd>
+<p>records the commit(s) which you are merging into your branch when you
+run <code>git</code> <code>merge</code>.</p>
+</dd>
+<dt class="hdlist1"><code>REBASE_HEAD</code></dt>
+<dd>
+<p>during a rebase, records the commit at which the operation is
+currently stopped, either because of conflicts or an <code>edit</code> command in
+an interactive rebase.</p>
+</dd>
+<dt class="hdlist1"><code>REVERT_HEAD</code></dt>
+<dd>
+<p>records the commit which you are reverting when you run <code>git</code> <code>revert</code>.</p>
+</dd>
+<dt class="hdlist1"><code>CHERRY_PICK_HEAD</code></dt>
+<dd>
+<p>records the commit which you are cherry-picking when you run <code>git</code>
+<code>cherry-pick</code>.</p>
+</dd>
+<dt class="hdlist1"><code>BISECT_HEAD</code></dt>
+<dd>
+<p>records the current commit to be tested when you run <code>git</code> <code>bisect</code>
+<code>--no-checkout</code>.</p>
+</dd>
+<dt class="hdlist1"><code>AUTO_MERGE</code></dt>
+<dd>
+<p>records a tree object corresponding to the state the
+<em>ort</em> merge strategy wrote to the working tree when a merge operation
+resulted in conflicts.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Note that any of the <em>refs/*</em> cases above may come either from
 the <code>$GIT_DIR/refs</code> directory or from the <code>$GIT_DIR/packed-refs</code> file.
 While the ref name encoding is unspecified, UTF-8 is preferred as
 some output processing may assume ref names in UTF-8.</p>
-</div>
-</li>
-</ol>
 </div>
 </dd>
 <dt class="hdlist1"><em>@</em></dt>
@@ -995,14 +1073,14 @@ before the current one.</p>
 <dt class="hdlist1"><em>[&lt;branchname&gt;]@{upstream}</em>, e.g. <em>master@{upstream}</em>, <em>@{u}</em></dt>
 <dd>
 <p>A branch B may be set up to build on top of a branch X (configured with
-<code>branch.&lt;name&gt;.merge</code>) at a remote R (configured with
-<code>branch.&lt;name&gt;.remote</code>). B@{u} refers to the remote-tracking branch for
+<code>branch.</code><em>&lt;name&gt;</em><code>.merge</code>) at a remote R (configured with
+<code>branch.</code><em>&lt;name&gt;</em><code>.remote</code>). B@{u} refers to the remote-tracking branch for
 the branch X taken from remote R, typically found at <code>refs/remotes/R/X</code>.</p>
 </dd>
 <dt class="hdlist1"><em>[&lt;branchname&gt;]@{push}</em>, e.g. <em>master@{push}</em>, <em>@{push}</em></dt>
 <dd>
 <p>The suffix <em>@{push}</em> reports the branch "where we would push to" if
-<code>git push</code> were run while <code>branchname</code> was checked out (or the current
+<code>git</code> <code>push</code> were run while <code>branchname</code> was checked out (or the current
 <code>HEAD</code> if no branchname is specified). Like for <em>@{upstream}</em>, we report
 the remote-tracking branch that corresponds to that branch at the remote.</p>
 <div class="paragraph">
@@ -1165,7 +1243,7 @@ J = F^2  = B^3^2   = A^^3^2</pre>
 <h2 id="_specifying_ranges">SPECIFYING RANGES</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>History traversing commands such as <code>git log</code> operate on a set
+<p>History traversing commands such as <code>git</code> <code>log</code> operate on a set
 of commits, not just a single commit.</p>
 </div>
 <div class="paragraph">
@@ -1373,11 +1451,11 @@ spelt out:</p>
 <div class="paragraph">
 <p>In <code>--parseopt</code> mode, <em>git rev-parse</em> helps massaging options to bring to shell
 scripts the same facilities C builtins have. It works as an option normalizer
-(e.g. splits single switches aggregate values), a bit like <code>getopt(1)</code> does.</p>
+(e.g. splits single switches aggregate values), a bit like <code>getopt</code>(<code>1</code>) does.</p>
 </div>
 <div class="paragraph">
 <p>It takes on the standard input the specification of the options to parse and
-understand, and echoes on the standard output a string suitable for <code>sh(1)</code> <code>eval</code>
+understand, and echoes on the standard output a string suitable for <code>sh</code>(<code>1</code>) <code>eval</code>
 to replace the arguments with normalized ones.  In case of error, it outputs
 usage on the standard error stream, and exits with code 129.</p>
 </div>
@@ -1403,41 +1481,41 @@ The lines after the separator describe the options.</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><code>&lt;opt-spec&gt;</code></dt>
+<dt class="hdlist1"><em>&lt;opt-spec&gt;</em></dt>
 <dd>
 <p>its format is the short option character, then the long option name
 separated by a comma. Both parts are not required, though at least one
-is necessary. May not contain any of the <code>&lt;flags&gt;</code> characters.
-<code>h,help</code>, <code>dry-run</code> and <code>f</code> are examples of correct <code>&lt;opt-spec&gt;</code>.</p>
+is necessary. May not contain any of the <em>&lt;flags&gt;</em> characters.
+<code>h,help</code>, <code>dry-run</code> and <code>f</code> are examples of correct <em>&lt;opt-spec&gt;</em>.</p>
 </dd>
-<dt class="hdlist1"><code>&lt;flags&gt;</code></dt>
+<dt class="hdlist1"><em>&lt;flags&gt;</em></dt>
 <dd>
-<p><code>&lt;flags&gt;</code> are of <code>*</code>, <code>=</code>, <code>?</code> or <code>!</code>.</p>
+<p><em>&lt;flags&gt;</em> are of *, <code>=</code>, ? or !.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Use <code>=</code> if the option takes an argument.</p>
 </li>
 <li>
-<p>Use <code>?</code> to mean that the option takes an optional argument. You
+<p>Use ? to mean that the option takes an optional argument. You
 probably want to use the <code>--stuck-long</code> mode to be able to
 unambiguously parse the optional argument.</p>
 </li>
 <li>
-<p>Use <code>*</code> to mean that this option should not be listed in the usage
+<p>Use * to mean that this option should not be listed in the usage
 generated for the <code>-h</code> argument. It&#8217;s shown for <code>--help-all</code> as
 documented in <a href="gitcli.html">gitcli(7)</a>.</p>
 </li>
 <li>
-<p>Use <code>!</code> to not make the corresponding negated long option available.</p>
+<p>Use ! to not make the corresponding negated long option available.</p>
 </li>
 </ul>
 </div>
 </dd>
-<dt class="hdlist1"><code>&lt;arg-hint&gt;</code></dt>
+<dt class="hdlist1"><em>&lt;arg-hint&gt;</em></dt>
 <dd>
-<p><code>&lt;arg-hint&gt;</code>, if specified, is used as a name of the argument in the
-help output, for options that take arguments. <code>&lt;arg-hint&gt;</code> is
+<p><em>&lt;arg-hint&gt;</em>, if specified, is used as a name of the argument in the
+help output, for options that take arguments. <em>&lt;arg-hint&gt;</em> is
 terminated by the first whitespace.  It is customary to use a
 dash to separate words in a multi-word argument hint.</p>
 </dd>
@@ -1445,7 +1523,7 @@ dash to separate words in a multi-word argument hint.</p>
 </div>
 <div class="paragraph">
 <p>The remainder of the line, after stripping the spaces, is used
-as the help associated to the option.</p>
+as the help associated with the option.</p>
 </div>
 <div class="paragraph">
 <p>Blank lines are ignored, and lines that don&#8217;t match this specification are used
@@ -1462,7 +1540,7 @@ some-command [&lt;options&gt;] &lt;args&gt;...
 
 some-command does foo and bar!
 --
-h,help    show the help
+h,help!   show the help
 
 foo       some nifty option --foo
 bar=      some cool option --bar with an argument
@@ -1479,7 +1557,7 @@ eval "$(echo "$OPTS_SPEC" | git rev-parse --parseopt -- "$@" || echo exit $?)"</
 <div class="sect2">
 <h3 id="_usage_text">Usage text</h3>
 <div class="paragraph">
-<p>When <code>"$@"</code> is <code>-h</code> or <code>--help</code> in the above example, the following
+<p>When "$@" is <code>-h</code> or <code>--help</code> in the above example, the following
 usage text would be shown:</p>
 </div>
 <div class="listingblock">
@@ -1489,10 +1567,10 @@ usage text would be shown:</p>
     some-command does foo and bar!
 
     -h, --help            show the help
-    --foo                 some nifty option --foo
-    --bar ...             some cool option --bar with an argument
-    --baz &lt;arg&gt;           another cool option --baz with a named argument
-    --qux[=&lt;path&gt;]        qux may take a path argument but has meaning by itself
+    --[no-]foo            some nifty option --foo
+    --[no-]bar ...        some cool option --bar with an argument
+    --[no-]baz &lt;arg&gt;      another cool option --baz with a named argument
+    --[no-]qux[=&lt;path&gt;]   qux may take a path argument but has meaning by itself
 
 An option group Header
     -C[...]               option C with an optional argument</pre>
@@ -1506,7 +1584,7 @@ An option group Header
 <div class="sectionbody">
 <div class="paragraph">
 <p>In <code>--sq-quote</code> mode, <em>git rev-parse</em> echoes on the standard output a
-single line suitable for <code>sh(1)</code> <code>eval</code>. This line is made by
+single line suitable for <code>sh</code>(<code>1</code>) <code>eval</code>. This line is made by
 normalizing the arguments following <code>--sq-quote</code>. Nothing other than
 quoting the arguments is done.</p>
 </div>
@@ -1583,7 +1661,7 @@ $ sh your-git-script.sh "a b'c"</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

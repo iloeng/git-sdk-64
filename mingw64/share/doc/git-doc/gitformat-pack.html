@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>gitformat-pack(5)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,6 +433,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="manpage">
 <div id="header">
@@ -460,8 +463,8 @@ $GIT_DIR/objects/pack/multi-pack-index</pre>
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Git pack format is now Git stores most of its primary repository
-data. Over the lietime af a repository loose objects (if any) and
+<p>The Git pack format is how Git stores most of its primary repository
+data. Over the lifetime of a repository, loose objects (if any) and
 smaller packs are consolidated into larger pack(s). See
 <a href="git-gc.html">git-gc(1)</a> and <a href="git-pack-objects.html">git-pack-objects(1)</a>.</p>
 </div>
@@ -515,7 +518,7 @@ more than 4G objects in a pack.</pre>
 </div>
 </li>
 <li>
-<p>The header is followed by number of object entries, each of
+<p>The header is followed by a number of object entries, each of
 which looks like this:</p>
 <div class="literalblock">
 <div class="content">
@@ -536,7 +539,7 @@ is an OBJ_OFS_DELTA object
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>Observation: length of each object is encoded in a variable
+<pre>Observation: the length of each object is encoded in a variable
 length format and is not constrained to 32-bit or anything.</pre>
 </div>
 </div>
@@ -621,7 +624,7 @@ the delta data is a sequence of instructions to reconstruct the object
 from the base object. If the base object is deltified, it must be
 converted to canonical form first. Each instruction appends more and
 more data to the target object until it&#8217;s complete. There are two
-supported instructions so far: one for copy a byte range from the
+supported instructions so far: one for copying a byte range from the
 source object and one for inserting new data embedded in the
 instruction itself.</p>
 </div>
@@ -647,7 +650,7 @@ copy. Offset and size are in little-endian order.</p>
 <div class="paragraph">
 <p>All offset and size bytes are optional. This is to reduce the
 instruction size when encoding small offsets or sizes. The first seven
-bits in the first octet determines which of the next seven octets is
+bits in the first octet determine which of the next seven octets is
 present. If bit zero is set, offset1 is present. If bit one is set
 offset2 is present and so on.</p>
 </div>
@@ -681,9 +684,9 @@ converted to 0x10000.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This is the instruction to construct target object without the base
+<p>This is the instruction to construct the target object without the base
 object. The following data is appended to the target object. The first
-seven bits of the first octet determines the size of data in
+seven bits of the first octet determine the size of data in
 bytes. The size must be non-zero.</p>
 </div>
 </div>
@@ -869,7 +872,7 @@ not need to refer to this table.</p>
 <p>The same trailer as a v1 pack file:</p>
 <div class="literalblock">
 <div class="content">
-<pre>A copy of the pack checksum at the end of
+<pre>A copy of the pack checksum at the end of the
 corresponding packfile.</pre>
 </div>
 </div>
@@ -1042,10 +1045,23 @@ otherwise specified.</pre>
 <div class="literalblock">
 <div class="content">
 <pre>Packfile Names (ID: {'P', 'N', 'A', 'M'})
-    Stores the packfile names as concatenated, null-terminated strings.
-    Packfiles must be listed in lexicographic order for fast lookups by
-    name. This is the only chunk not guaranteed to be a multiple of four
-    bytes in length, so should be the last chunk for alignment reasons.</pre>
+    Store the names of packfiles as a sequence of NUL-terminated
+    strings. There is no extra padding between the filenames,
+    and they are listed in lexicographic order. The chunk itself
+    is padded at the end with between 0 and 3 NUL bytes to make the
+    chunk size a multiple of 4 bytes.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Bitmapped Packfiles (ID: {'B', 'T', 'M', 'P'})
+    Stores a table of two 4-byte unsigned integers in network order.
+    Each table entry corresponds to a single pack (in the order that
+    they appear above in the `PNAM` chunk). The values for each table
+    entry are as follows:
+    - The first bit position (in pseudo-pack order, see below) to
+      contain an object from that pack.
+    - The number of bits whose objects are selected from that pack.</pre>
 </div>
 </div>
 <div class="literalblock">
@@ -1169,15 +1185,15 @@ too.</p>
 </div>
 <div class="paragraph">
 <p>Objects from the MIDX are ordered as follows to string together the
-pseudo-pack. Let <code>pack(o)</code> return the pack from which <code>o</code> was selected
+pseudo-pack. Let <code>pack</code>(<code>o</code>) return the pack from which <code>o</code> was selected
 by the MIDX, and define an ordering of packs based on their numeric ID
-(as stored by the MIDX). Let <code>offset(o)</code> return the object offset of <code>o</code>
-within <code>pack(o)</code>. Then, compare <code>o1</code> and <code>o2</code> as follows:</p>
+(as stored by the MIDX). Let <code>offset</code>(<code>o</code>) return the object offset of <code>o</code>
+within <code>pack</code>(<code>o</code>). Then, compare <code>o1</code> and <code>o2</code> as follows:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>If one of <code>pack(o1)</code> and <code>pack(o2)</code> is preferred and the other
+<p>If one of <code>pack</code>(<code>o1</code>) and <code>pack</code>(<code>o2</code>) is preferred and the other
 is not, then the preferred one sorts first.</p>
 <div class="paragraph">
 <p>(This is a detail that allows the MIDX bitmap to determine which
@@ -1186,13 +1202,13 @@ the MIDX for the pack containing the object at bit position 0).</p>
 </div>
 </li>
 <li>
-<p>If <code>pack(o1) ≠ pack(o2)</code>, then sort the two objects in descending
+<p>If <code>pack</code>(<code>o1</code>) ≠ <code>pack</code>(<code>o2</code>), then sort the two objects in descending
 order based on the pack ID.</p>
 </li>
 <li>
-<p>Otherwise, <code>pack(o1) = pack(o2)</code>, and the objects are sorted in
-pack-order (i.e., <code>o1</code> sorts ahead of <code>o2</code> exactly when <code>offset(o1)
-&lt; offset(o2)</code>).</p>
+<p>Otherwise, <code>pack</code>(<code>o1</code>) <code>=</code> <code>pack</code>(<code>o2</code>), and the objects are sorted in
+pack-order (i.e., <code>o1</code> sorts ahead of <code>o2</code> exactly when <code>offset</code>(<code>o1</code>)
+&lt; <code>offset</code>(<code>o2</code>)).</p>
 </li>
 </ul>
 </div>
@@ -1204,6 +1220,112 @@ packs arranged in MIDX order (with the preferred pack coming first).</p>
 <div class="paragraph">
 <p>The MIDX&#8217;s reverse index is stored in the optional <em>RIDX</em> chunk within
 the MIDX itself.</p>
+</div>
+<div class="sect2">
+<h3 id="_btmp_chunk"><code>BTMP</code> chunk</h3>
+<div class="paragraph">
+<p>The Bitmapped Packfiles (<code>BTMP</code>) chunk encodes additional information
+about the objects in the multi-pack index&#8217;s reachability bitmap. Recall
+that objects from the MIDX are arranged in "pseudo-pack" order (see
+above) for reachability bitmaps.</p>
+</div>
+<div class="paragraph">
+<p>From the example above, suppose we have packs "a", "b", and "c", with
+10, 15, and 20 objects, respectively. In pseudo-pack order, those would
+be arranged as follows:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>|a,0|a,1|...|a,9|b,0|b,1|...|b,14|c,0|c,1|...|c,19|</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When working with single-pack bitmaps (or, equivalently, multi-pack
+reachability bitmaps with a preferred pack), <a href="git-pack-objects.html">git-pack-objects(1)</a>
+performs &#8220;verbatim&#8221; reuse, attempting to reuse chunks of the bitmapped
+or preferred packfile instead of adding objects to the packing list.</p>
+</div>
+<div class="paragraph">
+<p>When a chunk of bytes is reused from an existing pack, any objects
+contained therein do not need to be added to the packing list, saving
+memory and CPU time. But a chunk from an existing packfile can only be
+reused when the following conditions are met:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The chunk contains only objects which were requested by the caller
+(i.e. does not contain any objects which the caller didn&#8217;t ask for
+explicitly or implicitly).</p>
+</li>
+<li>
+<p>All objects stored in non-thin packs as offset- or reference-deltas
+also include their base object in the resulting pack.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>BTMP</code> chunk encodes the necessary information in order to implement
+multi-pack reuse over a set of packfiles as described above.
+Specifically, the <code>BTMP</code> chunk encodes three pieces of information (all
+32-bit unsigned integers in network byte-order) for each packfile <code>p</code>
+that is stored in the MIDX, as follows:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>bitmap_pos</code></dt>
+<dd>
+<p>The first bit position (in pseudo-pack order) in the
+multi-pack index&#8217;s reachability bitmap occupied by an object from <code>p</code>.</p>
+</dd>
+<dt class="hdlist1"><code>bitmap_nr</code></dt>
+<dd>
+<p>The number of bit positions (including the one at
+<code>bitmap_pos</code>) that encode objects from that pack <code>p</code>.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>For example, the <code>BTMP</code> chunk corresponding to the above example (with
+packs &#8220;a&#8221;, &#8220;b&#8221;, and &#8220;c&#8221;) would look like:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;"/>
+<col style="width: 40%;"/>
+<col style="width: 40%;"/>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top"><code>bitmap_pos</code></th>
+<th class="tableblock halign-left valign-top"><code>bitmap_nr</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">packfile &#8220;a&#8221;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">packfile &#8220;b&#8221;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>15</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">packfile &#8220;c&#8221;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>25</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>20</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>With this information in place, we can treat each packfile as
+individually reusable in the same fashion as verbatim pack reuse is
+performed on individual packs prior to the implementation of the <code>BTMP</code>
+chunk.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1219,7 +1341,7 @@ same.</p>
 <div class="sect2">
 <h3 id="_background">Background</h3>
 <div class="paragraph">
-<p>To remove unreachable objects from your repository, Git offers <code>git repack -Ad</code>
+<p>To remove unreachable objects from your repository, Git offers <code>git</code> <code>repack</code> <code>-Ad</code>
 (see <a href="git-repack.html">git-repack(1)</a>). Quoting from the documentation:</p>
 </div>
 <div class="listingblock">
@@ -1249,7 +1371,7 @@ freshened at once.</p>
 <div class="paragraph">
 <p>This can lead to undesirable situations when a repository contains many
 unreachable objects which have not yet left the grace period. Having large
-directories in the shards of <code>.git/objects</code> can lead to decreased performance in
+directories in the shards of .<code>git/objects</code> can lead to decreased performance in
 the repository. But given enough unreachable objects, this can lead to inode
 starvation and degrade the performance of the whole system. Since we
 can never pack those objects, these repositories often take up a large amount of
@@ -1265,11 +1387,11 @@ state by including the per-object mtimes in a separate file alongside a single
 pack containing all loose objects.</p>
 </div>
 <div class="paragraph">
-<p>A cruft pack is written by <code>git repack --cruft</code> when generating a new pack.
-<a href="git-pack-objects.html">git-pack-objects(1)</a>'s <code>--cruft</code> option. Note that <code>git repack --cruft</code>
+<p>A cruft pack is written by <code>git</code> <code>repack</code> <code>--cruft</code> when generating a new pack.
+<a href="git-pack-objects.html">git-pack-objects(1)</a>'s <code>--cruft</code> option. Note that <code>git</code> <code>repack</code> <code>--cruft</code>
 is a classic all-into-one repack, meaning that everything in the resulting pack is
 reachable, and everything else is unreachable. Once written, the <code>--cruft</code>
-option instructs <code>git repack</code> to generate another pack containing only objects
+option instructs <code>git</code> <code>repack</code> to generate another pack containing only objects
 not packed in the previous step (which equates to packing all unreachable
 objects together). This progresses as follows:</p>
 </div>
@@ -1285,7 +1407,7 @@ tip.</p>
 step, adding every object along the way to the pack.</p>
 </li>
 <li>
-<p>Write the pack out, along with a <code>.mtimes</code> file that records the per-object
+<p>Write the pack out, along with a .<code>mtimes</code> file that records the per-object
 timestamps.</p>
 </li>
 </ol>
@@ -1297,8 +1419,8 @@ of packs which will not be deleted by the repack; in other words, they contain
 all of the repository&#8217;s reachable objects.</p>
 </div>
 <div class="paragraph">
-<p>When a repository already has a cruft pack, <code>git repack --cruft</code> typically only
-adds objects to it. An exception to this is when <code>git repack</code> is given the
+<p>When a repository already has a cruft pack, <code>git</code> <code>repack</code> <code>--cruft</code> typically only
+adds objects to it. An exception to this is when <code>git</code> <code>repack</code> is given the
 <code>--cruft-expiration</code> option, which allows the generated cruft pack to omit
 expired objects instead of waiting for <a href="git-gc.html">git-gc(1)</a> to expire those objects
 later on.</p>
@@ -1309,44 +1431,6 @@ unreachable objects.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_caution_for_mixed_version_environments">Caution for mixed-version environments</h3>
-<div class="paragraph">
-<p>Repositories that have cruft packs in them will continue to work with any older
-version of Git. Note, however, that previous versions of Git which do not
-understand the <code>.mtimes</code> file will use the cruft pack&#8217;s mtime as the mtime for
-all of the objects in it. In other words, do not expect older (pre-cruft pack)
-versions of Git to interpret or even read the contents of the <code>.mtimes</code> file.</p>
-</div>
-<div class="paragraph">
-<p>Note that having mixed versions of Git GC-ing the same repository can lead to
-unreachable objects never being completely pruned. This can happen under the
-following circumstances:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>An older version of Git running GC explodes the contents of an existing
-cruft pack loose, using the cruft pack&#8217;s mtime.</p>
-</li>
-<li>
-<p>A newer version running GC collects those loose objects into a cruft pack,
-where the .mtime file reflects the loose object&#8217;s actual mtimes, but the
-cruft pack mtime is "now".</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Repeating this process will lead to unreachable objects not getting pruned as a
-result of repeatedly resetting the objects' mtimes to the present time.</p>
-</div>
-<div class="paragraph">
-<p>If you are GC-ing repositories in a mixed version environment, consider omitting
-the <code>--cruft</code> option when using <a href="git-repack.html">git-repack(1)</a> and <a href="git-gc.html">git-gc(1)</a>, and
-setting the <code>gc.cruftPacks</code> configuration to "false" until all writers
-understand cruft packs.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_alternatives">Alternatives</h3>
 <div class="paragraph">
 <p>Notable alternatives to this design include:</p>
@@ -1354,26 +1438,15 @@ understand cruft packs.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The location of the per-object mtime data, and</p>
-</li>
-<li>
-<p>Storing unreachable objects in multiple cruft packs.</p>
+<p>The location of the per-object mtime data.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>On the location of mtime data, a new auxiliary file tied to the pack was chosen
-to avoid complicating the <code>.idx</code> format. If the <code>.idx</code> format were ever to gain
+to avoid complicating the .<code>idx</code> format. If the .<code>idx</code> format were ever to gain
 support for optional chunks of data, it may make sense to consolidate the
-<code>.mtimes</code> format into the <code>.idx</code> itself.</p>
-</div>
-<div class="paragraph">
-<p>Storing unreachable objects among multiple cruft packs (e.g., creating a new
-cruft pack during each repacking operation including only unreachable objects
-which aren&#8217;t already stored in an earlier cruft pack) is significantly more
-complicated to construct, and so aren&#8217;t pursued here. The obvious drawback to
-the current implementation is that the entire cruft pack must be re-written from
-scratch.</p>
+.<code>mtimes</code> format into the .<code>idx</code> itself.</p>
 </div>
 </div>
 </div>
@@ -1389,7 +1462,7 @@ scratch.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

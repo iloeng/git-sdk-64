@@ -48,6 +48,13 @@ extern "C" {
 #endif
 #endif /* _ARM64_ */
 
+#if defined(__arm64ec__) && \
+  !(defined(_X86_) || defined(__i386__) || defined(_IA64_) || defined (__arm__) || defined(__aarch64__))
+#if !defined(_ARM64EC_)
+#define _ARM64EC_
+#endif
+#endif /* _ARM64EC_ */
+
 #if defined(__ia64__) && \
   !(defined(_X86_) || defined(__x86_64) || defined(_AMD64_) || defined (__arm__) || defined(__aarch64__))
 #if !defined(_IA64_)
@@ -411,6 +418,18 @@ typedef struct _GROUP_AFFINITY {
 } GROUP_AFFINITY, *PGROUP_AFFINITY;
 #endif /* !___GROUP_AFFINITY_DEFINED */
 
+typedef struct _GROUP_AFFINITY32 {
+  DWORD Mask;
+  WORD Group;
+  WORD Reserved[3];
+} GROUP_AFFINITY32, *PGROUP_AFFINITY32;
+
+typedef struct _GROUP_AFFINITY64 {
+  unsigned __int64 Mask;
+  WORD Group;
+  WORD Reserved[3];
+} GROUP_AFFINITY64, *PGROUP_AFFINITY64;
+
 #ifdef STRICT
   typedef void *HANDLE;
 #define DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__ *name
@@ -694,13 +713,13 @@ typedef LONG RTL_REFERENCE_COUNT32, *PRTL_REFERENCE_COUNT32;
 #ifdef __cplusplus
 #define DEFINE_ENUM_FLAG_OPERATORS(ENUMTYPE) \
 extern "C++" { \
-inline ENUMTYPE operator | (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) | ((int)b)); } \
-inline ENUMTYPE &operator |= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((int &)a) |= ((int)b)); } \
-inline ENUMTYPE operator & (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) & ((int)b)); } \
-inline ENUMTYPE &operator &= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((int &)a) &= ((int)b)); } \
-inline ENUMTYPE operator ~ (ENUMTYPE a) { return ENUMTYPE(~((int)a)); } \
-inline ENUMTYPE operator ^ (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) ^ ((int)b)); } \
-inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((int &)a) ^= ((int)b)); } \
+__MINGW_CXX11_CONSTEXPR inline ENUMTYPE operator ~ (ENUMTYPE a) { return ENUMTYPE(~((int)a)); } \
+__MINGW_CXX11_CONSTEXPR inline ENUMTYPE operator | (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) | ((int)b)); } \
+__MINGW_CXX11_CONSTEXPR inline ENUMTYPE operator & (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) & ((int)b)); } \
+__MINGW_CXX11_CONSTEXPR inline ENUMTYPE operator ^ (ENUMTYPE a, ENUMTYPE b) { return ENUMTYPE(((int)a) ^ ((int)b)); } \
+__MINGW_CXX14_CONSTEXPR inline ENUMTYPE& operator |= (ENUMTYPE& a, ENUMTYPE b) { return a = a | b; } \
+__MINGW_CXX14_CONSTEXPR inline ENUMTYPE& operator &= (ENUMTYPE& a, ENUMTYPE b) { return a = a & b; } \
+__MINGW_CXX14_CONSTEXPR inline ENUMTYPE& operator ^= (ENUMTYPE& a, ENUMTYPE b) { return a = a ^ b; } \
 }
 #else
 #define DEFINE_ENUM_FLAG_OPERATORS(ENUMTYPE) /* */
@@ -916,6 +935,13 @@ inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((i
 #define PRODUCT_AZURE_SERVER_CLOUDMOS             0xC8
 #define PRODUCT_CLOUDEDITIONN                     0xCA
 #define PRODUCT_CLOUDEDITION                      0xCB
+#define PRODUCT_VALIDATION                        0xCC
+#define PRODUCT_IOTENTERPRISESK                   0xCD
+#define PRODUCT_IOTENTERPRISEK                    0xCE
+#define PRODUCT_IOTENTERPRISESEVAL                0xCF
+#define PRODUCT_AZURE_SERVER_AGENTBRIDGE          0xD0
+#define PRODUCT_AZURE_SERVER_NANOHOST             0xD1
+#define PRODUCT_WNC                               0xD2
 #define PRODUCT_AZURESTACKHCI_SERVER_CORE         0x196
 #define PRODUCT_DATACENTER_SERVER_AZURE_EDITION   0x197
 #define PRODUCT_DATACENTER_SERVER_CORE_AZURE_EDITION 0x198
@@ -1502,6 +1528,13 @@ inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((i
       DWORD64 Ia32Pl3SspMsr;
     } XSAVE_CET_U_FORMAT, *PXSAVE_CET_U_FORMAT;
 
+    typedef struct _XSAVE_ARM64_SVE_HEADER {
+      DWORD VectorLength;
+      DWORD VectorRegisterOffset;
+      DWORD PredicateRegisterOffset;
+      DWORD Reserved[5];
+    } XSAVE_ARM64_SVE_HEADER, *PXSAVE_ARM64_SVE_HEADER;
+
     typedef struct DECLSPEC_ALIGN (8) _XSAVE_AREA_HEADER {
       DWORD64 Mask;
       DWORD64 Reserved[7];
@@ -1512,10 +1545,13 @@ inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((i
       XSAVE_AREA_HEADER Header;
     } XSAVE_AREA,*PXSAVE_AREA;
 
+#define XSTATE_CONTEXT_FLAG_LOOKASIDE 0x1
+
     typedef struct _XSTATE_CONTEXT {
       DWORD64 Mask;
       DWORD Length;
-      DWORD Reserved1;
+      BYTE Flags;
+      BYTE Reserved0[3];
       PXSAVE_AREA Area;
 #if defined (__i386__)
       DWORD Reserved2;
@@ -1553,7 +1589,7 @@ inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((i
 
 #ifdef _AMD64_
 
-#if defined(__x86_64) && !defined(RC_INVOKED)
+#if defined(__x86_64) && !defined(__arm64ec__) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
   extern "C" {
@@ -1652,6 +1688,7 @@ inline ENUMTYPE &operator ^= (ENUMTYPE &a, ENUMTYPE b) { return (ENUMTYPE &)(((i
 
 #define CacheLineFlush(Address) _mm_clflush(Address)
 
+#if !defined(RC_INVOKED)
 # if defined(__cplusplus)
 extern "C" {
 # endif
@@ -1660,6 +1697,7 @@ extern "C" {
 }
 # endif
 #include <emmintrin.h>
+#endif /* !defined(RC_INVOKED) */
 
 #define FastFence __faststorefence
 #define LoadFence _mm_lfence
@@ -1751,7 +1789,7 @@ extern "C" {
 #ifdef __cplusplus
   }
 #endif
-#endif /* defined(__x86_64) && !defined(RC_INVOKED) */
+#endif /* defined(__x86_64) && !defined(__arm64ec__) && !defined(RC_INVOKED) */
 
 #define EXCEPTION_READ_FAULT 0
 #define EXCEPTION_WRITE_FAULT 1
@@ -2116,9 +2154,9 @@ extern "C" {
 #endif /* _ARM_ */
 
 
-#ifdef _ARM64_
+#if defined(_ARM64_) || defined(_ARM64EC_)
 
-#if defined(__aarch64__) && !defined(RC_INVOKED)
+#if (defined(__aarch64__) || defined(__arm64ec__)) && !defined(RC_INVOKED)
 
 #ifdef __cplusplus
   extern "C" {
@@ -2188,7 +2226,7 @@ extern "C" {
 #ifdef __cplusplus
   }
 #endif
-#endif /* defined(__aarch64__) && !defined(RC_INVOKED) */
+#endif /* (defined(__aarch64__) || defined(__arm64ec__)) && !defined(RC_INVOKED) */
 
 #define EXCEPTION_READ_FAULT    0
 #define EXCEPTION_WRITE_FAULT   1
@@ -2426,16 +2464,16 @@ extern "C" {
 
 #if defined(__i386__) && !defined(__x86_64)
 
-#ifdef __SSE2__
+#if defined(__SSE2__) && !defined(RC_INVOKED)
 #include <emmintrin.h>
 #define YieldProcessor _mm_pause
 #define MemoryBarrier _mm_mfence
-#else
+#else /* defined(__SSE2__) && !defined(RC_INVOKED) */
 #define YieldProcessor __buildpause
 VOID MemoryBarrier(VOID);
 FORCEINLINE VOID MemoryBarrier(VOID)
 __buildmemorybarrier()
-#endif
+#endif /* defined(__SSE2__) && !defined(RC_INVOKED) */
 
 #define PreFetchCacheLine(l,a)
 #define ReadForWriteAccess(p) (*(p))
@@ -2443,25 +2481,8 @@ __buildmemorybarrier()
 #define PF_TEMPORAL_LEVEL_1
 #define PF_NON_TEMPORAL_LEVEL_ALL
 
-#define PcTeb 0x18
-  struct _TEB *NtCurrentTeb(void);
-  PVOID GetCurrentFiber(void);
-  PVOID GetFiberData(void);
-
 #define DbgRaiseAssertionFailure __int2c
 
-  FORCEINLINE struct _TEB *NtCurrentTeb(void)
-  {
-    return (struct _TEB *)__readfsdword(PcTeb);
-  }
-  FORCEINLINE PVOID GetCurrentFiber(void)
-  {
-    return(PVOID)__readfsdword(0x10);
-  }
-  FORCEINLINE PVOID GetFiberData(void)
-  {
-      return *(PVOID *)GetCurrentFiber();
-  }
 #endif /* defined(__i386__) && !defined(__x86_64) */
 
 #define EXCEPTION_READ_FAULT 0
@@ -2625,8 +2646,6 @@ __buildmemorybarrier()
 #define UnsignedMultiplyHigh __UMULH
 
     ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
-#else  /* __ia64__ */
-    struct _TEB *NtCurrentTeb(void);
 #endif /* __ia64__ */
 #endif /* !defined(GENUTIL) && !defined(_GENIA64_) && defined(_IA64_) */
 
@@ -3097,6 +3116,11 @@ __buildmemorybarrier()
       SID_HASH_ENTRY Hash[SID_HASH_SIZE];
     } SID_AND_ATTRIBUTES_HASH, *PSID_AND_ATTRIBUTES_HASH;
 
+    typedef struct _ATTRIBUTES_AND_SID {
+      UINT32 Attributes;
+      DWORD SidStart;
+    } ATTRIBUTES_AND_SID, *PATTRIBUTES_AND_SID;
+
 #define SECURITY_NULL_SID_AUTHORITY {0,0,0,0,0,0}
 #define SECURITY_WORLD_SID_AUTHORITY {0,0,0,0,0,1}
 #define SECURITY_LOCAL_SID_AUTHORITY {0,0,0,0,0,2}
@@ -3200,8 +3224,14 @@ __buildmemorybarrier()
 
 #define SECURITY_CCG_ID_BASE_RID (__MSABI_LONG(0x0000005f))
 #define SECURITY_UMFD_BASE_RID (__MSABI_LONG(0x00000060))
+#define SECURITY_UNIQUIFIED_SERVICE_BASE_RID (__MSABI_LONG(0x00000061))
 
 #define SECURITY_VIRTUALACCOUNT_ID_RID_COUNT (__MSABI_LONG(6))
+
+#define SECURITY_EDGE_CLOUD_INFRASTRUCTURE_SERVICE_ID_BASE_RID (__MSABI_LONG(0x00000062))
+
+#define SECURITY_RESTRICTED_SERVICES_BASE_RID  (__MSABI_LONG(0x00000063))
+#define SECURITY_RESTRICTED_SERVICES_RID_COUNT (__MSABI_LONG(6))
 
 #define SECURITY_MAX_BASE_RID (__MSABI_LONG(0x0000006f))
 
@@ -3249,6 +3279,8 @@ __buildmemorybarrier()
 #define DOMAIN_GROUP_RID_PROTECTED_USERS (__MSABI_LONG(0x0000020d))
 #define DOMAIN_GROUP_RID_KEY_ADMINS (__MSABI_LONG(0x0000020e))
 #define DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS (__MSABI_LONG(0x0000020f))
+#define DOMAIN_GROUP_RID_FOREST_TRUSTS (__MSABI_LONG(0x00000210))
+#define DOMAIN_GROUP_RID_EXTERNAL_TRUSTS (__MSABI_LONG(0x00000211))
 
 #define DOMAIN_ALIAS_RID_ADMINS (__MSABI_LONG(0x00000220))
 #define DOMAIN_ALIAS_RID_USERS (__MSABI_LONG(0x00000221))
@@ -3288,6 +3320,8 @@ __buildmemorybarrier()
 #define DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT (__MSABI_LONG(0x00000245))
 #define DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS (__MSABI_LONG(0x00000246))
 #define DOMAIN_ALIAS_RID_DEVICE_OWNERS (__MSABI_LONG(0x00000247))
+#define DOMAIN_ALIAS_RID_USER_MODE_HARDWARE_OPERATORS (__MSABI_LONG(0x00000248))
+#define DOMAIN_ALIAS_RID_OPENSSH_USERS (__MSABI_LONG(0x00000249))
 
 #define SECURITY_APP_PACKAGE_AUTHORITY {0, 0, 0, 0, 0, 15}
 
@@ -3433,7 +3467,9 @@ __buildmemorybarrier()
       WinAuthenticationKeyPropertyMFASid = 116,
       WinAuthenticationKeyPropertyAttestationSid = 117,
       WinAuthenticationFreshKeyAuthSid = 118,
-      WinBuiltinDeviceOwnersSid = 119
+      WinBuiltinDeviceOwnersSid = 119,
+      WinBuiltinUserModeHardwareOperatorsSid = 120,
+      WinBuiltinOpenSSHUsersSid = 121
 } WELL_KNOWN_SID_TYPE;
 
 #define SYSTEM_LUID { 0x3e7, 0x0 }
@@ -5311,7 +5347,7 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
 #define LTP_PC_SMT 0x1
 
     typedef enum _PROCESSOR_CACHE_TYPE {
-      CacheUnified,CacheInstruction,CacheData,CacheTrace
+      CacheUnified,CacheInstruction,CacheData,CacheTrace,CacheUnknown
     } PROCESSOR_CACHE_TYPE;
 
 #define CACHE_FULLY_ASSOCIATIVE 0xFF
@@ -5537,6 +5573,22 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
 #define PF_ERMS_AVAILABLE 42
 #define PF_ARM_V82_DP_INSTRUCTIONS_AVAILABLE 43
 #define PF_ARM_V83_JSCVT_INSTRUCTIONS_AVAILABLE 44
+#define PF_ARM_V83_LRCPC_INSTRUCTIONS_AVAILABLE 45
+#define PF_ARM_SVE_INSTRUCTIONS_AVAILABLE 46
+#define PF_ARM_SVE2_INSTRUCTIONS_AVAILABLE 47
+#define PF_ARM_SVE2_1_INSTRUCTIONS_AVAILABLE 48
+#define PF_ARM_SVE_AES_INSTRUCTIONS_AVAILABLE 49
+#define PF_ARM_SVE_PMULL128_INSTRUCTIONS_AVAILABLE 50
+#define PF_ARM_SVE_BITPERM_INSTRUCTIONS_AVAILABLE 51
+#define PF_ARM_SVE_BF16_INSTRUCTIONS_AVAILABLE 52
+#define PF_ARM_SVE_EBF16_INSTRUCTIONS_AVAILABLE 53
+#define PF_ARM_SVE_B16B16_INSTRUCTIONS_AVAILABLE 54
+#define PF_ARM_SVE_SHA3_INSTRUCTIONS_AVAILABLE 55
+#define PF_ARM_SVE_SM4_INSTRUCTIONS_AVAILABLE 56
+#define PF_ARM_SVE_I8MM_INSTRUCTIONS_AVAILABLE 57
+#define PF_ARM_SVE_F32MM_INSTRUCTIONS_AVAILABLE 58
+#define PF_ARM_SVE_F64MM_INSTRUCTIONS_AVAILABLE 59
+#define PF_BMI2_INSTRUCTIONS_AVAILABLE 60
 
 #define XSTATE_LEGACY_FLOATING_POINT (0)
 #define XSTATE_LEGACY_SSE (1)
@@ -6093,7 +6145,71 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
     } FILE_NOTIFY_FULL_INFORMATION,*PFILE_NOTIFY_FULL_INFORMATION;
 #endif
 
+    typedef struct _FILE_STAT_INFORMATION {
+      LARGE_INTEGER FileId;
+      LARGE_INTEGER CreationTime;
+      LARGE_INTEGER LastAccessTime;
+      LARGE_INTEGER LastWriteTime;
+      LARGE_INTEGER ChangeTime;
+      LARGE_INTEGER AllocationSize;
+      LARGE_INTEGER EndOfFile;
+      DWORD FileAttributes;
+      DWORD ReparseTag;
+      DWORD NumberOfLinks;
+      ACCESS_MASK EffectiveAccess;
+    } FILE_STAT_INFORMATION, *PFILE_STAT_INFORMATION;
+
+#define LX_FILE_METADATA_HAS_UID 0x1
+#define LX_FILE_METADATA_HAS_GID 0x2
+#define LX_FILE_METADATA_HAS_MODE 0x4
+#define LX_FILE_METADATA_HAS_DEVICE_ID 0x8
+#define LX_FILE_CASE_SENSITIVE_DIR 0x10
+
+    typedef struct _FILE_STAT_LX_INFORMATION {
+      LARGE_INTEGER FileId;
+      LARGE_INTEGER CreationTime;
+      LARGE_INTEGER LastAccessTime;
+      LARGE_INTEGER LastWriteTime;
+      LARGE_INTEGER ChangeTime;
+      LARGE_INTEGER AllocationSize;
+      LARGE_INTEGER EndOfFile;
+      DWORD FileAttributes;
+      DWORD ReparseTag;
+      DWORD NumberOfLinks;
+      ACCESS_MASK EffectiveAccess;
+      DWORD LxFlags;
+      DWORD LxUid;
+      DWORD LxGid;
+      DWORD LxMode;
+      DWORD LxDeviceIdMajor;
+      DWORD LxDeviceIdMinor;
+    } FILE_STAT_LX_INFORMATION, *PFILE_STAT_LX_INFORMATION;
+
+#if NTDDI_VERSION >= NTDDI_WIN11_ZN
+    typedef struct _FILE_STAT_BASIC_INFORMATION {
+      LARGE_INTEGER FileId;
+      LARGE_INTEGER CreationTime;
+      LARGE_INTEGER LastAccessTime;
+      LARGE_INTEGER LastWriteTime;
+      LARGE_INTEGER ChangeTime;
+      LARGE_INTEGER AllocationSize;
+      LARGE_INTEGER EndOfFile;
+      DWORD FileAttributes;
+      DWORD ReparseTag;
+      DWORD NumberOfLinks;
+      DWORD DeviceType;
+      DWORD DeviceCharacteristics;
+      DWORD Reserved;
+      LARGE_INTEGER VolumeSerialNumber;
+      FILE_ID_128 FileId128;
+    } FILE_STAT_BASIC_INFORMATION, *PFILE_STAT_BASIC_INFORMATION;
+#endif
+
 #define FILE_CS_FLAG_CASE_SENSITIVE_DIR 0x00000001
+
+    typedef struct _FILE_CASE_SENSITIVE_INFORMATION {
+      DWORD Flags;
+    } FILE_CASE_SENSITIVE_INFORMATION, *PFILE_CASE_SENSITIVE_INFORMATION;
 
     typedef union _FILE_SEGMENT_ELEMENT {
       PVOID64 Buffer;
@@ -8407,6 +8523,13 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
       DWORD Reserved;
     } IMAGE_RESOURCE_DATA_ENTRY,*PIMAGE_RESOURCE_DATA_ENTRY;
 
+    typedef struct _IMAGE_LOAD_CONFIG_CODE_INTEGRITY {
+      WORD Flags;
+      WORD Catalog;
+      DWORD CatalogOffset;
+      DWORD Reserved;
+    } IMAGE_LOAD_CONFIG_CODE_INTEGRITY,*PIMAGE_LOAD_CONFIG_CODE_INTEGRITY;
+
     typedef struct {
       DWORD Size;
       DWORD TimeDateStamp;
@@ -8423,11 +8546,40 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
       DWORD ProcessHeapFlags;
       DWORD ProcessAffinityMask;
       WORD CSDVersion;
-      WORD Reserved1;
+      WORD DependentLoadFlags;
       DWORD EditList;
       DWORD SecurityCookie;
       DWORD SEHandlerTable;
       DWORD SEHandlerCount;
+      DWORD GuardCFCheckFunctionPointer;
+      DWORD GuardCFDispatchFunctionPointer;
+      DWORD GuardCFFunctionTable;
+      DWORD GuardCFFunctionCount;
+      DWORD GuardFlags;
+      IMAGE_LOAD_CONFIG_CODE_INTEGRITY CodeIntegrity;
+      DWORD GuardAddressTakenIatEntryTable;
+      DWORD GuardAddressTakenIatEntryCount;
+      DWORD GuardLongJumpTargetTable;
+      DWORD GuardLongJumpTargetCount;
+      DWORD DynamicValueRelocTable;
+      DWORD CHPEMetadataPointer;
+      DWORD GuardRFFailureRoutine;
+      DWORD GuardRFFailureRoutineFunctionPointer;
+      DWORD DynamicValueRelocTableOffset;
+      WORD DynamicValueRelocTableSection;
+      WORD Reserved2;
+      DWORD GuardRFVerifyStackPointerFunctionPointer;
+      DWORD HotPatchTableOffset;
+      DWORD Reserved3;
+      DWORD EnclaveConfigurationPointer;
+      DWORD VolatileMetadataPointer;
+      DWORD GuardEHContinuationTable;
+      DWORD GuardEHContinuationCount;
+      DWORD GuardXFGCheckFunctionPointer;
+      DWORD GuardXFGDispatchFunctionPointer;
+      DWORD GuardXFGTableDispatchFunctionPointer;
+      DWORD CastGuardOsDeterminedFailureMode;
+      DWORD GuardMemcpyFunctionPointer;
     } IMAGE_LOAD_CONFIG_DIRECTORY32,*PIMAGE_LOAD_CONFIG_DIRECTORY32;
 
     typedef struct {
@@ -8446,11 +8598,40 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
       ULONGLONG ProcessAffinityMask;
       DWORD ProcessHeapFlags;
       WORD CSDVersion;
-      WORD Reserved1;
+      WORD DependentLoadFlags;
       ULONGLONG EditList;
       ULONGLONG SecurityCookie;
       ULONGLONG SEHandlerTable;
       ULONGLONG SEHandlerCount;
+      ULONGLONG GuardCFCheckFunctionPointer;
+      ULONGLONG GuardCFDispatchFunctionPointer;
+      ULONGLONG GuardCFFunctionTable;
+      ULONGLONG GuardCFFunctionCount;
+      DWORD GuardFlags;
+      IMAGE_LOAD_CONFIG_CODE_INTEGRITY CodeIntegrity;
+      ULONGLONG GuardAddressTakenIatEntryTable;
+      ULONGLONG GuardAddressTakenIatEntryCount;
+      ULONGLONG GuardLongJumpTargetTable;
+      ULONGLONG GuardLongJumpTargetCount;
+      ULONGLONG DynamicValueRelocTable;
+      ULONGLONG CHPEMetadataPointer;
+      ULONGLONG GuardRFFailureRoutine;
+      ULONGLONG GuardRFFailureRoutineFunctionPointer;
+      DWORD DynamicValueRelocTableOffset;
+      WORD DynamicValueRelocTableSection;
+      WORD Reserved2;
+      ULONGLONG GuardRFVerifyStackPointerFunctionPointer;
+      DWORD HotPatchTableOffset;
+      DWORD Reserved3;
+      ULONGLONG EnclaveConfigurationPointer;
+      ULONGLONG VolatileMetadataPointer;
+      ULONGLONG GuardEHContinuationTable;
+      ULONGLONG GuardEHContinuationCount;
+      ULONGLONG GuardXFGCheckFunctionPointer;
+      ULONGLONG GuardXFGDispatchFunctionPointer;
+      ULONGLONG GuardXFGTableDispatchFunctionPointer;
+      ULONGLONG CastGuardOsDeterminedFailureMode;
+      ULONGLONG GuardMemcpyFunctionPointer;
     } IMAGE_LOAD_CONFIG_DIRECTORY64,*PIMAGE_LOAD_CONFIG_DIRECTORY64;
 
 #ifdef _WIN64
@@ -8762,7 +8943,7 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
     NTSYSAPI WORD NTAPI RtlCaptureStackBackTrace (DWORD FramesToSkip, DWORD FramesToCapture, PVOID *BackTrace, PDWORD BackTraceHash);
 #endif
 #if WINAPI_FAMILY_PARTITION (WINAPI_PARTITION_DESKTOP)
-    NTSYSAPI VOID NTAPI RtlCaptureContext (PCONTEXT ContextRecord);
+    NTSYSAPI VOID NTAPI __attribute__((__returns_twice__)) RtlCaptureContext (PCONTEXT ContextRecord);
     NTSYSAPI SIZE_T NTAPI RtlCompareMemory (const VOID *Source1, const VOID *Source2, SIZE_T Length);
 #if defined (__x86_64__)
 #if _WIN32_WINNT >= 0x0602
@@ -8773,7 +8954,7 @@ DEFINE_ENUM_FLAG_OPERATORS(JOB_OBJECT_IO_RATE_CONTROL_FLAGS)
     NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable (PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD64 BaseAddress);
     NTSYSAPI BOOLEAN __cdecl RtlDeleteFunctionTable (PRUNTIME_FUNCTION FunctionTable);
     NTSYSAPI BOOLEAN __cdecl RtlInstallFunctionTableCallback (DWORD64 TableIdentifier, DWORD64 BaseAddress, DWORD Length, PGET_RUNTIME_FUNCTION_CALLBACK Callback, PVOID Context, PCWSTR OutOfProcessCallbackDll);
-    NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord, struct _EXCEPTION_RECORD *ExceptionRecord);
+    NTSYSAPI VOID __cdecl __MINGW_ATTRIB_NORETURN RtlRestoreContext (PCONTEXT ContextRecord, struct _EXCEPTION_RECORD *ExceptionRecord);
 #endif
 #if defined (__arm__)
 #if _WIN32_WINNT >= 0x0602
@@ -8933,6 +9114,24 @@ typedef DWORD (WINAPI *PRTL_RUN_ONCE_INIT_FN)(PRTL_RUN_ONCE, PVOID, PVOID *);
 #define HEAP_MAXIMUM_TAG 0x0FFF
 #define HEAP_PSEUDO_TAG_FLAG 0x8000
 #define HEAP_TAG_SHIFT 18
+
+    PVOID WINAPI RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt);
+
+#if !defined (__CRT__NO_INLINE) && !defined (__WIDL__)
+    __CRT_INLINE PVOID WINAPI RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt) {
+      volatile char *vptr =(volatile char *)ptr;
+#if defined(__x86_64__) && !defined(__arm64ec__)
+      __stosb((PBYTE)((DWORD64)vptr),0,cnt);
+#else
+      while(cnt) {
+	*vptr++ = 0;
+	cnt--;
+      }
+#endif /* __x86_64 */
+      return ptr;
+    }
+#endif /* !__CRT__NO_INLINE // !__WIDL__ */
+
 /* Let this macro fail for non-desktop mode.  AFAIU this should be better an inline-function ... */
 #if WINAPI_FAMILY_PARTITION (WINAPI_PARTITION_DESKTOP)
 #define HEAP_MAKE_TAG_FLAGS(b,o) ((DWORD)((b) + ((o) << 18)))
@@ -8987,23 +9186,6 @@ typedef DWORD (WINAPI *PRTL_RUN_ONCE_INIT_FN)(PRTL_RUN_ONCE, PVOID, PVOID *);
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define RtlFillMemory(Destination,Length,Fill) memset((Destination),(Fill),(Length))
 #define RtlZeroMemory(Destination,Length) memset((Destination),0,(Length))
-
-    PVOID WINAPI RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt);
-
-#if !defined (__CRT__NO_INLINE) && !defined (__WIDL__)
-    __CRT_INLINE PVOID WINAPI RtlSecureZeroMemory(PVOID ptr,SIZE_T cnt) {
-      volatile char *vptr =(volatile char *)ptr;
-#ifdef __x86_64
-      __stosb((PBYTE)((DWORD64)vptr),0,cnt);
-#else
-      while(cnt) {
-	*vptr++ = 0;
-	cnt--;
-      }
-#endif /* __x86_64 */
-      return ptr;
-    }
-#endif /* !__CRT__NO_INLINE // !__WIDL__ */
 
     typedef struct _MESSAGE_RESOURCE_ENTRY {
       WORD Length;
@@ -9221,9 +9403,21 @@ typedef DWORD (WINAPI *PRTL_RUN_ONCE_INIT_FN)(PRTL_RUN_ONCE, PVOID, PVOID *);
     typedef LONG (NTAPI *PVECTORED_EXCEPTION_HANDLER) (struct _EXCEPTION_POINTERS *ExceptionInfo);
 
     typedef enum _HEAP_INFORMATION_CLASS {
-      HeapCompatibilityInformation,
-      HeapEnableTerminationOnCorruption
+      HeapCompatibilityInformation = 0,
+      HeapEnableTerminationOnCorruption = 1
+#if ((NTDDI_VERSION > NTDDI_WINBLUE) || (NTDDI_VERSION == NTDDI_WINBLUE && defined(WINBLUE_KBSPRING14)))
+      ,HeapOptimizeResources = 3
+#endif
+      ,HeapTag = 7
     } HEAP_INFORMATION_CLASS;
+
+#if ((NTDDI_VERSION > NTDDI_WINBLUE) || (NTDDI_VERSION == NTDDI_WINBLUE && defined(WINBLUE_KBSPRING14)))
+#define HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION 1
+    typedef struct _HEAP_OPTIMIZE_RESOURCES_INFORMATION {
+      DWORD Version;
+      DWORD Flags;
+    } HEAP_OPTIMIZE_RESOURCES_INFORMATION, *PHEAP_OPTIMIZE_RESOURCES_INFORMATION;
+#endif
 
     typedef VOID (NTAPI *WORKERCALLBACKFUNC) (PVOID);
     typedef VOID (NTAPI *APC_CALLBACK_FUNCTION) (DWORD, PVOID, PVOID);
@@ -10011,38 +10205,55 @@ typedef DWORD (WINAPI *PRTL_RUN_ONCE_INIT_FN)(PRTL_RUN_ONCE, PVOID, PVOID *);
     FORCEINLINE VOID TpDestroyCallbackEnviron (PTP_CALLBACK_ENVIRON cbe) { UNREFERENCED_PARAMETER (cbe); }
 #endif
 
-#if defined(__x86_64) && !defined (__WIDL__)
+#if !defined(__ia64__) && !defined (__WIDL__)
     struct _TEB *NtCurrentTeb(VOID);
     PVOID GetCurrentFiber(VOID);
     PVOID GetFiberData(VOID);
-    FORCEINLINE struct _TEB *NtCurrentTeb(VOID) { return (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self)); }
-    FORCEINLINE PVOID GetCurrentFiber(VOID) { return(PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData)); }
-    FORCEINLINE PVOID GetFiberData(VOID) {
-      return *(PVOID *)GetCurrentFiber();
+
+#if defined (__aarch64__) || defined(__arm64ec__)
+    register struct _TEB *__mingw_current_teb __asm__("x18");
+    FORCEINLINE struct _TEB *NtCurrentTeb(VOID)
+    {
+        return __mingw_current_teb;
     }
-#endif /* __x86_64 */
+    FORCEINLINE PVOID GetCurrentFiber(VOID)
+    {
+        return (PVOID)(((PNT_TIB)NtCurrentTeb())->FiberData);
+    }
+#elif defined(__x86_64__)
+    FORCEINLINE struct _TEB *NtCurrentTeb(VOID)
+    {
+        return (struct _TEB *)__readgsqword(FIELD_OFFSET(NT_TIB,Self));
+    }
+    FORCEINLINE PVOID GetCurrentFiber(VOID)
+    {
+        return (PVOID)__readgsqword(FIELD_OFFSET(NT_TIB,FiberData));
+    }
+#elif defined(__i386__)
+#   define PcTeb 0x18
+    FORCEINLINE struct _TEB *NtCurrentTeb(void)
+    {
+        return (struct _TEB *)__readfsdword(PcTeb);
+    }
+    FORCEINLINE PVOID GetCurrentFiber(void)
+    {
+        return (PVOID)__readfsdword(0x10);
+    }
+#elif defined (__arm__)
+    FORCEINLINE struct _TEB *NtCurrentTeb(VOID)
+    {
+        struct _TEB *teb;
+        __asm ("mrc p15, 0, %0, c13, c0, 2" : "=r" (teb));
+        return teb;
+    }
+    FORCEINLINE PVOID GetCurrentFiber(VOID)
+    {
+        return (PVOID)(((PNT_TIB)NtCurrentTeb())->FiberData);
+    }
+#endif
 
-#if defined (__arm__) && !defined (__WIDL__)
-    struct _TEB *NtCurrentTeb (VOID);
-    PVOID GetCurrentFiber (VOID);
-    PVOID GetFiberData (VOID);
-    FORCEINLINE struct _TEB *NtCurrentTeb(VOID) { struct _TEB *teb;
-    __asm ("mrc p15, 0, %0, c13, c0, 2" : "=r" (teb));
-    return teb; }
-    FORCEINLINE PVOID GetCurrentFiber(VOID) { return (PVOID)(((PNT_TIB)NtCurrentTeb())->FiberData); }
-    FORCEINLINE PVOID GetFiberData (VOID) { return *(PVOID *)GetCurrentFiber (); }
-#endif /* arm */
-
-#if defined (__aarch64__) && !defined (__WIDL__)
-    struct _TEB *NtCurrentTeb (VOID);
-    PVOID GetCurrentFiber (VOID);
-    PVOID GetFiberData (VOID);
-    FORCEINLINE struct _TEB *NtCurrentTeb(VOID) { struct _TEB *teb;
-    __asm ("mov %0, x18" : "=r" (teb));
-    return teb; }
-    FORCEINLINE PVOID GetCurrentFiber(VOID) { return (PVOID)(((PNT_TIB)NtCurrentTeb())->FiberData); }
-    FORCEINLINE PVOID GetFiberData (VOID) { return *(PVOID *)GetCurrentFiber (); }
-#endif /* aarch64 */
+    FORCEINLINE PVOID GetFiberData (VOID) { return *(void **)GetCurrentFiber (); }
+#endif /* !defined(__ia64__) && !defined (__WIDL__) */
 
 #ifndef _NTTMAPI_
 #define _NTTMAPI_

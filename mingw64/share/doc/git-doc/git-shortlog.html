@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>git-shortlog(1)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -434,6 +432,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer{background:none}
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<style>
+pre>code {
+   display: inline;
+}
 </style>
 </head>
 <body class="manpage">
@@ -509,12 +512,12 @@ by the <code>--format</code> option of <em>git log</em>, such as <em>* [%h] %s</
 <dd>
 <p>Show dates formatted according to the given date string. (See
 the <code>--date</code> option in the "Commit Formatting" section of
-<a href="git-log.html">git-log(1)</a>). Useful with <code>--group=format:&lt;format&gt;</code>.</p>
+<a href="git-log.html">git-log(1)</a>). Useful with <code>--group=format:</code><em>&lt;format&gt;</em>.</p>
 </dd>
 <dt class="hdlist1">--group=&lt;type&gt;</dt>
 <dd>
-<p>Group commits based on <code>&lt;type&gt;</code>. If no <code>--group</code> option is
-specified, the default is <code>author</code>. <code>&lt;type&gt;</code> is one of:</p>
+<p>Group commits based on <em>&lt;type&gt;</em>. If no <code>--group</code> option is
+specified, the default is <code>author</code>. <em>&lt;type&gt;</em> is one of:</p>
 <div class="openblock">
 <div class="content">
 <div class="ulist">
@@ -526,14 +529,14 @@ specified, the default is <code>author</code>. <code>&lt;type&gt;</code> is one 
 <p><code>committer</code>, commits are grouped by committer (the same as <code>-c</code>)</p>
 </li>
 <li>
-<p><code>trailer:&lt;field&gt;</code>, the <code>&lt;field&gt;</code> is interpreted as a case-insensitive
+<p><code>trailer:</code><em>&lt;field&gt;</em>, the <em>&lt;field&gt;</em> is interpreted as a case-insensitive
 commit message trailer (see <a href="git-interpret-trailers.html">git-interpret-trailers(1)</a>). For
 example, if your project uses <code>Reviewed-by</code> trailers, you might want
 to see who has been reviewing with
-<code>git shortlog -ns --group=trailer:reviewed-by</code>.</p>
+<code>git</code> <code>shortlog</code> <code>-ns</code> <code>--group=trailer:reviewed-by</code>.</p>
 </li>
 <li>
-<p><code>format:&lt;format&gt;</code>, any string accepted by the <code>--format</code> option of
+<p><code>format:</code><em>&lt;format&gt;</em>, any string accepted by the <code>--format</code> option of
 <em>git log</em>. (See the "PRETTY FORMATS" section of
 <a href="git-log.html">git-log(1)</a>.)</p>
 <div class="paragraph">
@@ -543,7 +546,7 @@ be counted more than once (but only once per unique trailer value in
 that commit).</p>
 </div>
 <div class="paragraph">
-<p>Shortlog will attempt to parse each trailer value as a <code>name &lt;email&gt;</code>
+<p>Shortlog will attempt to parse each trailer value as a <code>name</code> <em>&lt;email&gt;</em>
 identity. If successful, the mailmap is applied and the email is omitted
 unless the <code>--email</code> option is specified. If the value cannot be parsed
 as an identity, it will be taken literally and completely.</p>
@@ -556,7 +559,7 @@ as an identity, it will be taken literally and completely.</p>
 <div class="paragraph">
 <p>If <code>--group</code> is specified multiple times, commits are counted under each
 value (but again, only once per unique value in that commit). For
-example, <code>git shortlog --group=author --group=trailer:co-authored-by</code>
+example, <code>git</code> <code>shortlog</code> <code>--group=author</code> <code>--group=trailer:co-authored-by</code>
 counts both authors and co-authors.</p>
 </div>
 </dd>
@@ -580,7 +583,7 @@ them.</p>
 <dd>
 <p>Show only commits in the specified revision range.  When no
 &lt;revision-range&gt; is specified, it defaults to <code>HEAD</code> (i.e. the
-whole history leading to the current commit).  <code>origin..HEAD</code>
+whole history leading to the current commit).  <code>origin</code><code>..</code><code>HEAD</code>
 specifies all the commits reachable from the current commit
 (i.e. <code>HEAD</code>), but not from <code>origin</code>. For a complete list of
 ways to spell &lt;revision-range&gt;, see the "Specifying Ranges"
@@ -606,9 +609,9 @@ limiting may be applied.</p>
 </div>
 <div class="paragraph">
 <p>Using more options generally further limits the output (e.g.
-<code>--since=&lt;date1&gt;</code> limits to commits newer than <code>&lt;date1&gt;</code>, and using it
-with <code>--grep=&lt;pattern&gt;</code> further limits to commits whose log message
-has a line that matches <code>&lt;pattern&gt;</code>), unless otherwise noted.</p>
+<code>--since=</code><em>&lt;date1&gt;</em> limits to commits newer than <em>&lt;date1&gt;</em>, and using it
+with <code>--grep=</code><em>&lt;pattern&gt;</em> further limits to commits whose log message
+has a line that matches <em>&lt;pattern&gt;</em>), unless otherwise noted.</p>
 </div>
 <div class="paragraph">
 <p>Note that these are applied before commit
@@ -647,9 +650,9 @@ is older than a specific date.</p>
 <dd>
 <p>Limit the commits output to ones with author/committer
 header lines that match the specified pattern (regular
-expression).  With more than one <code>--author=&lt;pattern&gt;</code>,
+expression).  With more than one <code>--author=</code><em>&lt;pattern&gt;</em>,
 commits whose author matches any of the given patterns are
-chosen (similarly for multiple <code>--committer=&lt;pattern&gt;</code>).</p>
+chosen (similarly for multiple <code>--committer=</code><em>&lt;pattern&gt;</em>).</p>
 </dd>
 <dt class="hdlist1">--grep-reflog=&lt;pattern&gt;</dt>
 <dd>
@@ -661,9 +664,9 @@ error to use this option unless <code>--walk-reflogs</code> is in use.</p>
 </dd>
 <dt class="hdlist1">--grep=&lt;pattern&gt;</dt>
 <dd>
-<p>Limit the commits output to ones with log message that
+<p>Limit the commits output to ones with a log message that
 matches the specified pattern (regular expression).  With
-more than one <code>--grep=&lt;pattern&gt;</code>, commits whose message
+more than one <code>--grep=</code><em>&lt;pattern&gt;</em>, commits whose message
 matches any of the given patterns are chosen (but see
 <code>--all-match</code>).</p>
 <div class="paragraph">
@@ -678,8 +681,8 @@ instead of ones that match at least one.</p>
 </dd>
 <dt class="hdlist1">--invert-grep</dt>
 <dd>
-<p>Limit the commits output to ones with log message that do not
-match the pattern specified with <code>--grep=&lt;pattern&gt;</code>.</p>
+<p>Limit the commits output to ones with a log message that do not
+match the pattern specified with <code>--grep=</code><em>&lt;pattern&gt;</em>.</p>
 </dd>
 <dt class="hdlist1">-i</dt>
 <dt class="hdlist1">--regexp-ignore-case</dt>
@@ -765,7 +768,11 @@ that arbitrary merges can be valid topic branch changes.</p>
 <dt class="hdlist1">--not</dt>
 <dd>
 <p>Reverses the meaning of the <em>^</em> prefix (or lack thereof)
-for all following revision specifiers, up to the next <code>--not</code>.</p>
+for all following revision specifiers, up to the next <code>--not</code>.
+When used on the command line before --stdin, the revisions passed
+through stdin will not be affected by it. Conversely, when passed
+via standard input, the revisions passed on the command line will
+not be affected by it.</p>
 </dd>
 <dt class="hdlist1">--all</dt>
 <dd>
@@ -828,7 +835,7 @@ configuration along with <code>transfer.hideRefs</code> (see
 <dt class="hdlist1">--reflog</dt>
 <dd>
 <p>Pretend as if all objects mentioned by reflogs are listed on the
-command line as <code>&lt;commit&gt;</code>.</p>
+command line as <em>&lt;commit&gt;</em>.</p>
 </dd>
 <dt class="hdlist1">--alternate-refs</dt>
 <dd>
@@ -857,15 +864,18 @@ the bad input was not given.</p>
 <dd>
 <p>Pretend as if the bad bisection ref <code>refs/bisect/bad</code>
 was listed and as if it was followed by <code>--not</code> and the good
-bisection refs <code>refs/bisect/good-*</code> on the command
+bisection refs <code>refs/bisect/good-</code>* on the command
 line.</p>
 </dd>
 <dt class="hdlist1">--stdin</dt>
 <dd>
-<p>In addition to the <em>&lt;commit&gt;</em> listed on the command
-line, read them from the standard input. If a <code>--</code> separator is
-seen, stop reading commits and start reading paths to limit the
-result.</p>
+<p>In addition to getting arguments from the command line, read
+them from standard input as well. This accepts commits and
+pseudo-options like <code>--all</code> and <code>--glob=</code>. When a <code>--</code> separator
+is seen, the following input is treated as paths and used to
+limit the result. Flags like <code>--not</code> which are read via standard input
+are only respected for arguments passed in the same way and will not
+influence any subsequent command line arguments.</p>
 </dd>
 <dt class="hdlist1">--cherry-mark</dt>
 <dd>
@@ -891,23 +901,23 @@ excluded from the output.</p>
 <dt class="hdlist1">--right-only</dt>
 <dd>
 <p>List only commits on the respective side of a symmetric difference,
-i.e. only those which would be marked <code>&lt;</code> resp. <code>&gt;</code> by
+i.e. only those which would be marked &lt; resp. &gt; by
 <code>--left-right</code>.</p>
 <div class="paragraph">
-<p>For example, <code>--cherry-pick --right-only A...B</code> omits those
+<p>For example, <code>--cherry-pick</code> <code>--right-only</code> <code>A</code><code>...</code><code>B</code> omits those
 commits from <code>B</code> which are in <code>A</code> or are patch-equivalent to a commit in
-<code>A</code>. In other words, this lists the <code>+</code> commits from <code>git cherry A B</code>.
-More precisely, <code>--cherry-pick --right-only --no-merges</code> gives the exact
+<code>A</code>. In other words, this lists the <code>+</code> commits from <code>git</code> <code>cherry</code> <code>A</code> <code>B</code>.
+More precisely, <code>--cherry-pick</code> <code>--right-only</code> <code>--no-merges</code> gives the exact
 list.</p>
 </div>
 </dd>
 <dt class="hdlist1">--cherry</dt>
 <dd>
-<p>A synonym for <code>--right-only --cherry-mark --no-merges</code>; useful to
+<p>A synonym for <code>--right-only</code> <code>--cherry-mark</code> <code>--no-merges</code>; useful to
 limit the output to the commits on our side and mark those that
 have been applied to the other side of a forked history with
-<code>git log --cherry upstream...mybranch</code>, similar to
-<code>git cherry upstream mybranch</code>.</p>
+<code>git</code> <code>log</code> <code>--cherry</code> <code>upstream</code><code>...</code><code>mybranch</code>, similar to
+<code>git</code> <code>cherry</code> <code>upstream</code> <code>mybranch</code>.</p>
 </dd>
 <dt class="hdlist1">-g</dt>
 <dt class="hdlist1">--walk-reflogs</dt>
@@ -921,8 +931,8 @@ and <em>commit1...commit2</em> notations cannot be used).</p>
 <p>With <code>--pretty</code> format other than <code>oneline</code> and <code>reference</code> (for obvious reasons),
 this causes the output to have two extra lines of information
 taken from the reflog.  The reflog designator in the output may be shown
-as <code>ref@{Nth}</code> (where <code>Nth</code> is the reverse-chronological index in the
-reflog) or as <code>ref@{timestamp}</code> (with the timestamp for that entry),
+as <code>ref@</code>{<em>&lt;Nth&gt;</em>} (where <em>&lt;Nth&gt;</em> is the reverse-chronological index in the
+reflog) or as <code>ref@</code>{<em>&lt;timestamp&gt;</em>} (with the <em>&lt;timestamp&gt;</em> for that entry),
 depending on a few rules:</p>
 </div>
 <div class="openblock">
@@ -930,11 +940,11 @@ depending on a few rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If the starting point is specified as <code>ref@{Nth}</code>, show the index
+<p>If the starting point is specified as <code>ref@</code>{<em>&lt;Nth&gt;</em>}, show the index
 format.</p>
 </li>
 <li>
-<p>If the starting point was specified as <code>ref@{now}</code>, show the
+<p>If the starting point was specified as <code>ref@</code>{now}, show the
 timestamp format.</p>
 </li>
 <li>
@@ -960,8 +970,11 @@ See also <a href="git-reflog.html">git-reflog(1)</a>.</p>
 </dd>
 <dt class="hdlist1">--merge</dt>
 <dd>
-<p>After a failed merge, show refs that touch files having a
-conflict and don&#8217;t exist on all heads to merge.</p>
+<p>Show commits touching conflicted paths in the range <code>HEAD</code><code>...</code><em>&lt;other&gt;</em>,
+where <em>&lt;other&gt;</em> is the first existing pseudoref in <code>MERGE_HEAD</code>,
+<code>CHERRY_PICK_HEAD</code>, <code>REVERT_HEAD</code> or <code>REBASE_HEAD</code>. Only works
+when the index has unmerged entries. This option can be used to show
+relevant commits when resolving conflicts from a 3-way merge.</p>
 </dd>
 <dt class="hdlist1">--boundary</dt>
 <dd>
@@ -1038,7 +1051,8 @@ commits contributing to this merge.</p>
 <dt class="hdlist1">--ancestry-path[=&lt;commit&gt;]</dt>
 <dd>
 <p>When given a range of commits to display (e.g. <em>commit1..commit2</em>
-or <em>commit2 ^commit1</em>), only display commits in that range
+or <em>commit2 ^commit1</em>), and a commit &lt;commit&gt; in that range,
+only display commits in that range
 that are ancestors of &lt;commit&gt;, descendants of &lt;commit&gt;, or
 &lt;commit&gt; itself.  If no commit is specified, use <em>commit1</em> (the
 excluded part of the range) as &lt;commit&gt;.  Can be passed multiple
@@ -1219,7 +1233,7 @@ sides of the merge are never walked.</p>
 <p>First, build a history graph in the same way that
 <code>--full-history</code> with parent rewriting does (see above).</p>
 <div class="paragraph">
-<p>Then simplify each commit <code>C</code> to its replacement <code>C'</code> in the final
+<p>Then simplify each commit <code>C</code> to its replacement <code>C</code>' in the final
 history according to the following rules:</p>
 </div>
 <div class="openblock">
@@ -1227,16 +1241,16 @@ history according to the following rules:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Set <code>C'</code> to <code>C</code>.</p>
+<p>Set <code>C</code>' to <code>C</code>.</p>
 </li>
 <li>
-<p>Replace each parent <code>P</code> of <code>C'</code> with its simplification <code>P'</code>.  In
+<p>Replace each parent <code>P</code> of <code>C</code>' with its simplification <code>P</code>'.  In
 the process, drop parents that are ancestors of other parents or that are
 root commits TREESAME to an empty tree, and remove duplicates, but take care
 to never drop all parents that we are TREESAME to.</p>
 </li>
 <li>
-<p>If after this parent rewriting, <code>C'</code> is a root or merge commit (has
+<p>If after this parent rewriting, <code>C</code>' is a root or merge commit (has
 zero or &gt;1 parents), a boundary commit, or !TREESAME, it remains.
 Otherwise, it is replaced with its only parent.</p>
 </li>
@@ -1338,8 +1352,8 @@ explicit.</p>
 <div class="paragraph">
 <p>If we instead are interested in a given topic within this range, and all
 commits affected by that topic, we may only want to view the subset of
-<code>D..M</code> which contain that topic in their ancestry path.  So, using
-<code>--ancestry-path=H D..M</code> for example would result in:</p>
+<code>D</code><code>..</code><code>M</code> which contain that topic in their ancestry path.  So, using
+<code>--ancestry-path=H</code> <code>D</code><code>..</code><code>M</code> for example would result in:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1351,7 +1365,7 @@ commits affected by that topic, we may only want to view the subset of
 </div>
 </div>
 <div class="paragraph">
-<p>Whereas <code>--ancestry-path=K D..M</code> would result in</p>
+<p>Whereas <code>--ancestry-path=K</code> <code>D</code><code>..</code><code>M</code> would result in</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1534,8 +1548,8 @@ commits are marked as TREESAME (subject to be simplified away).</p>
 <p>See <a href="gitmailmap.html">gitmailmap(5)</a>.</p>
 </div>
 <div class="paragraph">
-<p>Note that if <code>git shortlog</code> is run outside of a repository (to process
-log contents on standard input), it will look for a <code>.mailmap</code> file in
+<p>Note that if <code>git</code> <code>shortlog</code> is run outside of a repository (to process
+log contents on standard input), it will look for a .<code>mailmap</code> file in
 the current directory.</p>
 </div>
 </div>
@@ -1551,7 +1565,7 @@ the current directory.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

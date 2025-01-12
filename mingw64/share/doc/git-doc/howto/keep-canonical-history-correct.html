@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="generator" content="Asciidoctor 2.0.17"/>
+<meta name="generator" content="Asciidoctor 2.0.23"/>
 <title>Keep authoritative canonical history correct with git pull</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"/>
 <style>
@@ -84,10 +84,10 @@ code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;
 ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
-ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
-ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -208,13 +209,10 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
-.exampleblock>.content>:first-child{margin-top:0}
-.exampleblock>.content>:last-child{margin-bottom:0}
 .sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
-.sidebarblock>:first-child{margin-top:0}
-.sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
-.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
 .literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
 @media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
 @media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
@@ -330,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -393,7 +391,7 @@ b.conum *{color:inherit!important}
 dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
 h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
 p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
-p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
 .exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
@@ -435,13 +433,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<style>
+pre>code {
+   display: inline;
+}
+</style>
 </head>
 <body class="article">
 <div id="header">
 <h1>Keep authoritative canonical history correct with git pull</h1>
-<div class="details">
-<span id="revdate">2023-07-13</span>
-</div>
 </div>
 <div id="content">
 <div class="paragraph">
@@ -451,7 +451,7 @@ expect. This howto presents a suggested integration workflow for
 maintaining a central repository.</p>
 </div>
 <div class="paragraph">
-<p>Suppose that that central repository has this history:</p>
+<p>Suppose that the central repository has this history:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -483,13 +483,13 @@ central repository:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Now, if you <code>git push</code> at this point, because your history that leads
+<p>Now, if you <code>git</code> <code>push</code> at this point, because your history that leads
 to <code>C</code> lacks <code>X</code>, <code>Y</code> and <code>Z</code>, it will fail.  You need to somehow make
 the tip of your history a descendant of <code>Z</code>.</p>
 </div>
 <div class="paragraph">
 <p>One suggested way to solve the problem is "fetch and then merge", aka
-<code>git pull</code>. When you fetch, your repository will have a history like
+<code>git</code> <code>pull</code>. When you fetch, your repository will have a history like
 this:</p>
 </div>
 <div class="listingblock">
@@ -546,8 +546,8 @@ central repository, you made <code>X-Y-Z</code> a side branch, not on the trunk.
 did <code>X</code> and then <code>Y</code> and then <code>Z</code> and merged a change that consists of
 two commits <code>B</code> and <code>C</code> that achieves a single goal.  You may have
 worked on fixing the bug #12345 with these two patches, and the merge
-<code>M'</code> with swapped parents can say in its log message "Merge
-fix-bug-12345". Having a way to tell <code>git pull</code> to create a merge
+<code>M</code>' with swapped parents can say in its log message "Merge
+fix-bug-12345". Having a way to tell <code>git</code> <code>pull</code> to create a merge
 but record the parents in reverse order may be a way to do so.</p>
 </div>
 <div class="paragraph">
@@ -573,7 +573,7 @@ updated upstream to result in a history of this shape instead:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>with <code>git pull --rebase</code> or something.</p>
+<p>with <code>git</code> <code>pull</code> <code>--rebase</code> or something.</p>
 </div>
 </li>
 <li>
@@ -584,11 +584,11 @@ it is unnecessary.</p>
 </li>
 <li>
 <p>Some projects want each commit on the "trunk" to do one single
-thing.  The output of <code>git log --first-parent</code> in such a project
+thing.  The output of <code>git</code> <code>log</code> <code>--first-parent</code> in such a project
 would show either a merge of a side branch that completes a single
 theme, or a single commit that completes a single theme by itself.
 If your two commits <code>B</code> and <code>C</code> (or they may even be two groups of
-commits) were solving two independent issues, then the merge <code>M'</code>
+commits) were solving two independent issues, then the merge <code>M</code>'
 we made in the earlier example by swapping the merge order is
 still not up to the project standard.  It merges two unrelated
 efforts <code>B</code> and <code>C</code> at the same time.</p>
@@ -671,7 +671,7 @@ branch:</p>
 <div class="paragraph">
 <p>It is very much possible that while you are merging topic-b and
 topic-c, somebody again advanced the history in the central repository
-to put <code>W</code> on top of <code>Z</code>, and make your <code>git push</code> fail.</p>
+to put <code>W</code> on top of <code>Z</code>, and make your <code>git</code> <code>push</code> fail.</p>
 </div>
 <div class="paragraph">
 <p>In such a case, you would rewind to discard <code>M</code> and <code>N</code>, update the
@@ -698,12 +698,12 @@ tip of your <em>master</em> again and redo the two merges:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>See also <a href="http://git-blame.blogspot.com/2013/09/fun-with-first-parent-history.html" class="bare">http://git-blame.blogspot.com/2013/09/fun-with-first-parent-history.html</a></p>
+<p>See also <a href="https://git-blame.blogspot.com/2013/09/fun-with-first-parent-history.html" class="bare">https://git-blame.blogspot.com/2013/09/fun-with-first-parent-history.html</a></p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-13 19:37:19 UTC
+Last updated 2025-01-09 11:56:28 UTC
 </div>
 </div>
 </body>

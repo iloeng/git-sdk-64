@@ -16,6 +16,7 @@
 #ifndef LIBPKGCONF__LIBPKGCONF_H
 #define LIBPKGCONF__LIBPKGCONF_H
 
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -67,6 +68,7 @@ typedef struct pkgconf_fragment_ pkgconf_fragment_t;
 typedef struct pkgconf_path_ pkgconf_path_t;
 typedef struct pkgconf_client_ pkgconf_client_t;
 typedef struct pkgconf_cross_personality_ pkgconf_cross_personality_t;
+typedef struct pkgconf_queue_ pkgconf_queue_t;
 
 #define PKGCONF_ARRAY_SIZE(x) (sizeof(x) / sizeof(*(x)))
 
@@ -79,8 +81,13 @@ typedef struct pkgconf_cross_personality_ pkgconf_cross_personality_t;
 #define PKGCONF_FOREACH_LIST_ENTRY_REVERSE(tail, value) \
 	for ((value) = (tail); (value) != NULL; (value) = (value)->prev)
 
-#define LIBPKGCONF_VERSION	20000
-#define LIBPKGCONF_VERSION_STR	"2.0.0"
+#define LIBPKGCONF_VERSION	20300
+#define LIBPKGCONF_VERSION_STR	"2.3.0"
+
+struct pkgconf_queue_ {
+	pkgconf_node_t iter;
+	char *package;
+};
 
 struct pkgconf_fragment_ {
 	pkgconf_node_t iter;
@@ -130,6 +137,8 @@ struct pkgconf_path_ {
 #define PKGCONF_PKG_PROPF_CACHED		0x02
 #define PKGCONF_PKG_PROPF_UNINSTALLED		0x08
 #define PKGCONF_PKG_PROPF_VIRTUAL		0x10
+#define PKGCONF_PKG_PROPF_ANCESTOR		0x20
+#define PKGCONF_PKG_PROPF_VISITED_PRIVATE	0x40
 
 struct pkgconf_pkg_ {
 	int refcount;
@@ -143,6 +152,7 @@ struct pkgconf_pkg_ {
 	char *license;
 	char *maintainer;
 	char *copyright;
+	char *why;
 
 	pkgconf_list_t libs;
 	pkgconf_list_t libs_private;
@@ -273,6 +283,7 @@ PKGCONF_API void pkgconf_cross_personality_deinit(pkgconf_cross_personality_t *p
 
 #define PKGCONF_PKG_DEPF_INTERNAL		0x1
 #define PKGCONF_PKG_DEPF_PRIVATE		0x2
+#define PKGCONF_PKG_DEPF_QUERY			0x4
 
 #define PKGCONF_PKG_ERRF_OK			0x0
 #define PKGCONF_PKG_ERRF_PACKAGE_NOT_FOUND	0x1
@@ -356,6 +367,7 @@ typedef struct pkgconf_fragment_render_ops_ {
 
 typedef bool (*pkgconf_fragment_filter_func_t)(const pkgconf_client_t *client, const pkgconf_fragment_t *frag, void *data);
 PKGCONF_API bool pkgconf_fragment_parse(const pkgconf_client_t *client, pkgconf_list_t *list, pkgconf_list_t *vars, const char *value, unsigned int flags);
+PKGCONF_API void pkgconf_fragment_insert(const pkgconf_client_t *client, pkgconf_list_t *list, char type, const char *data, bool tail);
 PKGCONF_API void pkgconf_fragment_add(const pkgconf_client_t *client, pkgconf_list_t *list, const char *string, unsigned int flags);
 PKGCONF_API void pkgconf_fragment_copy(const pkgconf_client_t *client, pkgconf_list_t *list, const pkgconf_fragment_t *base, bool is_private);
 PKGCONF_API void pkgconf_fragment_copy_list(const pkgconf_client_t *client, pkgconf_list_t *list, const pkgconf_list_t *base);
@@ -403,6 +415,7 @@ PKGCONF_API void pkgconf_audit_log_dependency(pkgconf_client_t *client, const pk
 
 /* path.c */
 PKGCONF_API void pkgconf_path_add(const char *text, pkgconf_list_t *dirlist, bool filter);
+PKGCONF_API void pkgconf_path_prepend(const char *text, pkgconf_list_t *dirlist, bool filter);
 PKGCONF_API size_t pkgconf_path_split(const char *text, pkgconf_list_t *dirlist, bool filter);
 PKGCONF_API size_t pkgconf_path_build_from_environ(const char *envvarname, const char *fallback, pkgconf_list_t *dirlist, bool filter);
 PKGCONF_API bool pkgconf_path_match_list(const char *path, const pkgconf_list_t *dirlist);

@@ -18,9 +18,9 @@ mingw64/lib/libsqlite3.a
 mingw64/lib/libsqlite3.dll.a
 mingw64/lib/pkgconfig/
 mingw64/lib/pkgconfig/sqlite3.pc
-mingw64/lib/sqlite3.53.2/
-mingw64/lib/sqlite3.53.2/libsqlite3.53.1.dll
-mingw64/lib/sqlite3.53.2/pkgIndex.tcl
+mingw64/lib/sqlite3.53.3/
+mingw64/lib/sqlite3.53.3/libsqlite3.53.3.dll
+mingw64/lib/sqlite3.53.3/pkgIndex.tcl
 mingw64/share/
 mingw64/share/licenses/
 mingw64/share/licenses/sqlite3/
@@ -95,8 +95,6 @@ mingw64/share/sqlite/extensions/remember.c
 mingw64/share/sqlite/extensions/remember.dll
 mingw64/share/sqlite/extensions/rot13.c
 mingw64/share/sqlite/extensions/rot13.dll
-mingw64/share/sqlite/extensions/scrub.c
-mingw64/share/sqlite/extensions/scrub.dll
 mingw64/share/sqlite/extensions/series.c
 mingw64/share/sqlite/extensions/series.dll
 mingw64/share/sqlite/extensions/sha1.c

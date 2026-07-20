@@ -2,9 +2,11 @@
 mingw64/
 mingw64/bin/
 mingw64/bin/bomtool.exe
-mingw64/bin/libpkgconf-7.dll
+mingw64/bin/libpkgconf-8.dll
+mingw64/bin/pccritic.exe
 mingw64/bin/pkg-config.exe
 mingw64/bin/pkgconf.exe
+mingw64/bin/spdxtool.exe
 mingw64/bin/x86_64-w64-mingw32-pkg-config.exe
 mingw64/bin/x86_64-w64-mingw32-pkgconf.exe
 mingw64/include/
@@ -25,11 +27,14 @@ mingw64/share/aclocal/pkg.m4
 mingw64/share/doc/
 mingw64/share/doc/pkgconf/
 mingw64/share/doc/pkgconf/AUTHORS
+mingw64/share/doc/pkgconf/COPYING
 mingw64/share/doc/pkgconf/README.md
 mingw64/share/man/
 mingw64/share/man/man1/
 mingw64/share/man/man1/bomtool.1.gz
+mingw64/share/man/man1/pccritic.1.gz
 mingw64/share/man/man1/pkgconf.1.gz
+mingw64/share/man/man1/spdxtool.1.gz
 mingw64/share/man/man5/
 mingw64/share/man/man5/pc.5.gz
 mingw64/share/man/man5/pkgconf-personality.5.gz

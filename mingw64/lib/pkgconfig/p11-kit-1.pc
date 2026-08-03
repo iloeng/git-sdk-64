@@ -1,20 +1,12 @@
 prefix=/mingw64
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
 includedir=${prefix}/include
-datarootdir=${prefix}/share
-datadir=${datarootdir}
-pkgdatadir=${datarootdir}/p11-kit
-sysconfdir=/mingw64/etc
-p11_module_configs=${pkgdatadir}/modules
-p11_module_path=${exec_prefix}/lib/pkcs11
-p11_trust_paths=/mingw64/etc/pki/ca-trust/source:/mingw64/share/pki/ca-trust-source
-proxy_module=${exec_prefix}/lib/p11-kit-proxy.dll
+libdir=${prefix}/lib
 
-# This is for compatibility. Other packages were using this to determine
-# the directory they should install their module configs to, so override
-# this and redirect them to the new location
-p11_system_config_modules=${pkgdatadir}/modules
+p11_module_configs=/mingw64/share/p11-kit/modules
+p11_module_path=/mingw64/lib/pkcs11
+proxy_module=/mingw64/lib/p11-kit-proxy.dll
+p11_system_config_modules=/mingw64/share/p11-kit/modules
+p11_trust_paths=/mingw64/etc/pki/ca-trust/source:/mingw64/share/pki/ca-trust-source
 
 Name: p11-kit
 Description: Library and proxy module for properly loading and sharing PKCS#11 modules.

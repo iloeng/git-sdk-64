@@ -19,7 +19,7 @@ import gdb
 import os
 import os.path
 
-pythondir = '/mingw64/share/gcc-16.1.0/python'
+pythondir = '/mingw64/share/gcc-16.2.0/python'
 libdir = '/mingw64/lib/../lib'
 
 # This file might be loaded when there is no current objfile.  This

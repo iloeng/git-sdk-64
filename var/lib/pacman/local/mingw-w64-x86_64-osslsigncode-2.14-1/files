@@ -6,4 +6,8 @@ mingw64/share/
 mingw64/share/bash-completion/
 mingw64/share/bash-completion/completions/
 mingw64/share/bash-completion/completions/osslsigncode.bash
+mingw64/share/doc/
+mingw64/share/doc/osslsigncode/
+mingw64/share/doc/osslsigncode/NEWS.md
+mingw64/share/doc/osslsigncode/README.md
 

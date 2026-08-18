@@ -1,0 +1,43 @@
+%NAME%
+mingw-w64-i686-windows-default-manifest
+
+%VERSION%
+20260815-1
+
+%BASE%
+mingw-w64-windows-default-manifest
+
+%DESC%
+Default Windows application manifest (mingw-w64)
+
+%URL%
+
+
+%ARCH%
+any
+
+%BUILDDATE%
+1786872645
+
+%INSTALLDATE%
+1787024025
+
+%PACKAGER%
+CI (https://github.com/msys2/msys2-autobuild/actions/runs/31939173638/job/95145742449)
+
+%SIZE%
+892
+
+%REASON%
+1
+
+%LICENSE%
+custom:Public Domain
+
+%VALIDATION%
+sha256
+pgp
+
+%XDATA%
+pkgtype=pkg
+
